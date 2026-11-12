@@ -3,7 +3,6 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="دراسة حالة عن تصميم شخصية بيكسل وتحريكها ومزامنة حركتها مع الصوت في فيديو قصير.">
 <title>شخصيتي بتتكلم — دراسة حالة</title>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800;900&family=Inter:wght@500;700;800&display=swap" rel="stylesheet">
 <style>
@@ -80,7 +79,7 @@
     <span class="chip en">ChatGPT</span><span class="chip en">Claude Code</span><span class="chip en">Remotion</span><span class="chip en">ElevenLabs</span><span class="chip en">faster-whisper</span><span class="chip en">ffmpeg</span>
   </div>
   <div class="grid2" style="align-items:start">
-    <div class="phone"><img src="img/cover.webp" width="960" height="1706" alt="غلاف حلقة شخصيتي بتتكلم"></div>
+    <div class="phone"><img src="img/cover.webp" width="960" height="1706" alt="غلاف الحلقة"></div>
     <div>
       <div class="card" style="margin-bottom:10px">
         <h3 style="margin-top:0">دوري</h3>
@@ -98,7 +97,7 @@
       </div>
     </div>
   </div>
-  <div class="footer"><span class="en">@abdelhakam14</span><span class="en">1 / 7</span></div>
+  <div class="footer"><span class="en">@abdelhakam14</span><span class="en">1 / 8</span></div>
 </section>
 
 <!-- 2 — BRIEF + PIPELINE -->
@@ -130,7 +129,7 @@
     <tr><td>الصوت</td><td>«ضفت صوتي، وهو ظبط التوقيت على كل كلمة»</td><td>موجة صوت + علامات التوقيت</td></tr>
     <tr><td>القفلة</td><td>«اكتب موشن في الكومنتات… وكل ده بدأ من صورة»</td><td>كومنت «motion» ← الصورة ترجع ← زرار تابعني</td></tr>
   </table>
-  <div class="footer"><span class="en">@abdelhakam14</span><span class="en">2 / 7</span></div>
+  <div class="footer"><span class="en">@abdelhakam14</span><span class="en">2 / 8</span></div>
 </section>
 
 <!-- 3 — CHARACTER -->
@@ -138,14 +137,14 @@
   <div class="kicker">STEP 1 · CHARACTER</div>
   <h2><span class="num">1</span>الشخصية وكل حركاتها — <span class="en">ChatGPT</span></h2>
   <p>من صورة شخصية واحدة لشخصية بيكسل آرت، وبعدها شيت كامل بكل الحركات بنفس الشكل والمقاس.</p>
-  <img src="img/poses-grid.webp" width="1260" height="520" loading="lazy" alt="شبكة حركات الشخصية" style="margin:8px 0 6px">
+  <img src="img/poses-grid.webp" width="1260" height="520" loading="lazy" alt="حركات الشخصية" style="margin:8px 0 6px">
   <div class="cap">12 حركة: وقفة · تشاور · مفاجأة · تفكير · تسليم · لايك · مشي (3 فريمات) · ذهول · صباع واحد · 3 صوابع</div>
   <h3>برومبت الشخصية</h3>
   <pre>Turn the person in the attached photo into a full-body pixel-art game character. Keep his face, hair, beard and outfit recognizable. Clean pixel-art style with a dark outline, front-facing 3/4 view, standing pose, plain white background, no text.</pre>
   <h3>برومبت كل الحركات</h3>
   <pre>Using the attached pixel-art character exactly as it is (same style, colors, face, outfit and size), create a sprite sheet on a plain white background with these poses, each full body and the same scale: idle standing, pointing to the side, surprised (hands up), thinking (hand on chin), waving, thumbs up, walking (3 frames), mind-blown (hands on head), celebrating jump, holding up 1 finger, holding up 3 fingers. Evenly spaced grid, no text.</pre>
   <div class="card"><p style="margin:0">💡 <b>الدرس:</b> رفع صورة الشخصية الأصلية مع كل برومبت هو اللي بيحافظ على نفس الشكل. لما اتولّدت شخصية من غير الصورة الأصلية، طلعت مختلفة واترفضت.</p></div>
-  <div class="footer"><span class="en">@abdelhakam14</span><span class="en">3 / 7</span></div>
+  <div class="footer"><span class="en">@abdelhakam14</span><span class="en">3 / 8</span></div>
 </section>
 
 <!-- 4 — LIP SYNC -->
@@ -154,7 +153,7 @@
   <h2><span class="num">2</span>أشكال البُق — الشخصية بتتكلم فعلاً</h2>
   <div class="grid2" style="grid-template-columns: 1.05fr 1fr; align-items:start">
     <div>
-      <img src="img/mouth-grid.webp" width="920" height="1440" loading="lazy" alt="أربعة أشكال للفم في كل وضع من أوضاع الشخصية">
+      <img src="img/mouth-grid.webp" width="920" height="1440" loading="lazy" alt="أشكال البق">
       <div class="cap">6 أوضاع × 4 أشكال للبُق: مقفول · نص مفتوح · «أو» · مفتوح</div>
     </div>
     <div>
@@ -169,7 +168,7 @@
       </ul>
     </div>
   </div>
-  <div class="footer"><span class="en">@abdelhakam14</span><span class="en">4 / 7</span></div>
+  <div class="footer"><span class="en">@abdelhakam14</span><span class="en">4 / 8</span></div>
 </section>
 
 <!-- 5 — CLAUDE CODE -->
@@ -178,8 +177,29 @@
   <h2><span class="num">3</span>الأنيميشن والمونتاج — <span class="en">Claude Code + Remotion</span></h2>
   <p>الفيديو كله اتعمل بالكود (<span class="en">Remotion</span>) — وأنا بكلّم <span class="en">Claude Code</span> بالعربي زي ما بكلّم مونتير، وهو بيكتب ويعدّل ويصدّر.</p>
   <h3>الإعداد</h3>
-  <pre>npx skills add remotion-dev/skills
-# remotion-best-practices · remotion-create · remotion-captions · remotion-markup · remotion-multimedia · remotion-render</pre>
+  <pre>npx skills add remotion-dev/skills</pre>
+  <div class="grid2" style="margin-bottom:6px">
+    <div class="card">
+      <h3 style="margin-top:0">🧩 الـSkills (Remotion)</h3>
+      <table>
+        <tr><td class="en" style="text-align:right;font-weight:700;font-size:10.5px;white-space:nowrap;color:var(--cyan)">remotion-best-practices</td><td>الأساسيات — بتعلّم Claude يكتب فيديو Remotion صح</td></tr>
+        <tr><td class="en" style="text-align:right;font-weight:700;font-size:10.5px;white-space:nowrap;color:var(--cyan)">remotion-create</td><td>بتعمل مشروع فيديو جديد</td></tr>
+        <tr><td class="en" style="text-align:right;font-weight:700;font-size:10.5px;white-space:nowrap;color:var(--cyan)">remotion-captions</td><td>الكلام اللي بيظهر مع الصوت</td></tr>
+        <tr><td class="en" style="text-align:right;font-weight:700;font-size:10.5px;white-space:nowrap;color:var(--cyan)">remotion-markup</td><td>الحركة والأنيميشن والمؤثرات</td></tr>
+        <tr><td class="en" style="text-align:right;font-weight:700;font-size:10.5px;white-space:nowrap;color:var(--cyan)">remotion-multimedia</td><td>الصور والفيديو والصوت</td></tr>
+        <tr><td class="en" style="text-align:right;font-weight:700;font-size:10.5px;white-space:nowrap;color:var(--cyan)">remotion-render</td><td>تصدير الفيديو</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0">🛠️ أدوات تانية (Claude بيثبّتها لوحده)</h3>
+      <table>
+        <tr><td class="en" style="text-align:right;font-weight:700;color:var(--gold)">Node.js</td><td>عشان Remotion يشتغل</td></tr>
+        <tr><td class="en" style="text-align:right;font-weight:700;color:var(--gold)">Python</td><td>سكريبتات الصوت</td></tr>
+        <tr><td class="en" style="text-align:right;font-weight:700;color:var(--gold)">ffmpeg</td><td>تنضيف الصوت، تظبيط مستواه، والتصدير</td></tr>
+        <tr><td class="en" style="text-align:right;font-weight:700;color:var(--gold)">faster-whisper</td><td>توقيت كل كلمة من الصوت — عشان البُق والكلام يمشوا مع الصوت</td></tr>
+      </table>
+    </div>
+  </div>
   <h3>أمثلة من الطلبات</h3>
   <table>
     <tr><th>الطلب</th><th>اللي حصل</th></tr>
@@ -190,7 +210,7 @@
     <tr><td>«زوّد تابعني في الآخر»</td><td>زرار + صباع بيدوس + جرس + الـhandle</td></tr>
   </table>
   <h3>تفاصيل الحركة</h3>
-  <div class="grid3">
+  <div class="grid3" style="font-size:12px">
     <div class="card"><p style="margin:0">🫁 تنفّس خفيف وهي واقفة</p></div>
     <div class="card"><p style="margin:0">🔀 انتقال ناعم بين الحركات</p></div>
     <div class="card"><p style="margin:0">🚶 مشي بـ4 خطوات داخل المعاينة</p></div>
@@ -198,7 +218,29 @@
     <div class="card"><p style="margin:0">🔊 مؤثرات صوت على كل لحظة مهمة</p></div>
     <div class="card"><p style="margin:0">🔁 النهاية بترجع للبداية (لوب)</p></div>
   </div>
-  <div class="footer"><span class="en">@abdelhakam14</span><span class="en">5 / 7</span></div>
+  <div class="footer"><span class="en">@abdelhakam14</span><span class="en">5 / 8</span></div>
+</section>
+
+<!-- 5b — SETUP PROMPT -->
+<section class="page">
+  <div class="kicker"><bdi dir="ltr">SETUP</bdi> · <bdi dir="ltr">ONE PROMPT</bdi></div>
+  <h2>برومبت التجهيز — <bdi dir="ltr">Claude</bdi> يثبّت كل حاجة لوحده</h2>
+  <p>بدل ما تثبّت كل أداة بإيدك: افتح <span class="en"><bdi dir="ltr">Claude Code</bdi></span> في فولدر جديد، والزق البرومبت ده. هو بيتأكد من كل أداة، ويثبّت الناقص بس، ويعمل فيديو تجربة يأكد إن كله شغال.</p>
+  <div class="card" style="border-color:var(--gold);margin:12px 0">
+    <div style="font-size:14px;line-height:2;color:#fff">جهّزلي الجهاز عشان أعمل فيديوهات أنيميشن بـ<bdi dir="ltr">Remotion</bdi>. اعمل الخطوات دي بالترتيب، وقبل كل خطوة اتأكد إذا كانت الحاجة متثبّتة أصلاً عشان ماتعيدش تثبيتها:<br><bdi dir="ltr">1</bdi>. اتأكد إن <bdi dir="ltr">Node.js</bdi> (نسخة <bdi dir="ltr">18</bdi> أو أحدث) متثبّت، ولو مش موجود ثبّته.<br><bdi dir="ltr">2</bdi>. اتأكد إن <bdi dir="ltr">Python</bdi> (نسخة <bdi dir="ltr">3.10</bdi> أو أحدث) متثبّت، ولو مش موجود ثبّته.<br><bdi dir="ltr">3</bdi>. ثبّت <bdi dir="ltr">ffmpeg</bdi> واتأكد إنه شغال من الـ<bdi dir="ltr">terminal</bdi>.<br><bdi dir="ltr">4</bdi>. اعمل مشروع <bdi dir="ltr">Remotion</bdi> جديد في الفولدر ده لفيديوهات رأسية <bdi dir="ltr">1080×1920</bdi> و<bdi dir="ltr">30</bdi> فريم في الثانية.<br><bdi dir="ltr">5</bdi>. ركّب الـ<bdi dir="ltr">skills</bdi> بتاعة <bdi dir="ltr">Remotion: npx skills add remotion-dev/skills</bdi><br><bdi dir="ltr">6</bdi>. ثبّت <bdi dir="ltr">faster-whisper</bdi> بـ<bdi dir="ltr">pip</bdi>، ونزّل موديل <bdi dir="ltr">small</bdi> عشان نستخدمه في توقيت الكلام.<br><bdi dir="ltr">7</bdi>. في الآخر اعمل فيديو تجربة <bdi dir="ltr">3</bdi> ثواني مكتوب عليه "جاهز ✅" وصدّره <bdi dir="ltr">MP4</bdi>، عشان نتأكد إن كل حاجة شغالة.<br>وقولّي إيه اللي اتثبّت وإيه اللي كان موجود.</div>
+  </div>
+  <h3>هيثبّت إيه؟</h3>
+  <table>
+    <tr><th>الأداة</th><th>ليه</th></tr>
+    <tr><td class="en" style="text-align:right;font-weight:700;color:var(--gold)"><bdi dir="ltr">Node.js 18+</bdi></td><td>عشان <bdi dir="ltr">Remotion</bdi> يشتغل</td></tr>
+    <tr><td class="en" style="text-align:right;font-weight:700;color:var(--gold)"><bdi dir="ltr">Python 3.10+</bdi></td><td>سكريبتات الصوت</td></tr>
+    <tr><td class="en" style="text-align:right;font-weight:700;color:var(--gold)"><bdi dir="ltr">ffmpeg</bdi></td><td>تنضيف الصوت وتظبيط مستواه، والتصدير</td></tr>
+    <tr><td class="en" style="text-align:right;font-weight:700;color:var(--gold)"><bdi dir="ltr">Remotion</bdi></td><td>مشروع الفيديو نفسه — <bdi dir="ltr">1080×1920 · 30fps</bdi></td></tr>
+    <tr><td class="en" style="text-align:right;font-weight:700;color:var(--cyan)"><bdi dir="ltr">remotion-dev/skills</bdi></td><td>الـ<bdi dir="ltr">6 Skills</bdi> اللي بتعلّم <bdi dir="ltr">Claude</bdi> يعمل الفيديو صح</td></tr>
+    <tr><td class="en" style="text-align:right;font-weight:700;color:var(--gold)"><bdi dir="ltr">faster-whisper (small)</bdi></td><td>توقيت كل كلمة من الصوت</td></tr>
+  </table>
+  <div class="card" style="margin-top:12px"><p style="margin:0">✅ لو <bdi dir="ltr">Claude</bdi> طلب إذن يثبّت حاجة، وافق. ولو حاجة فشلت، قوله «صلّحها» — وهو يحلّها لوحده.</p></div>
+  <div class="footer"><span class="en">@<bdi dir="ltr">abdelhakam14</bdi></span><span class="en"><bdi dir="ltr">6 / 8</bdi></span></div>
 </section>
 
 <!-- 6 — VOICE + STORYBOARD -->
@@ -219,7 +261,7 @@
     <div><div class="phone"><img src="img/still-14.5.jpg" width="540" height="960" loading="lazy" alt=""></div><div class="cap">Claude Code + المعاينة</div></div>
     <div><div class="phone"><img src="img/still-18.5.jpg" width="540" height="960" loading="lazy" alt=""></div><div class="cap">بيشاور ويتفاجئ</div></div>
   </div>
-  <div class="footer"><span class="en">@abdelhakam14</span><span class="en">6 / 7</span></div>
+  <div class="footer"><span class="en">@abdelhakam14</span><span class="en">7 / 8</span></div>
 </section>
 
 <!-- 7 — STORYBOARD 2 + RESULT -->
@@ -248,7 +290,7 @@
   <div class="card" style="text-align:center;margin-top:10px">
     <p style="margin:0;font-size:15px"><b>تابع</b> <span class="en cyan" style="font-weight:800">@abdelhakam14</span> عشان كل جديد في الـAI ⚡</p>
   </div>
-  <div class="footer"><span class="en">@abdelhakam14</span><span class="en">7 / 7</span></div>
+  <div class="footer"><span class="en">@abdelhakam14</span><span class="en">8 / 8</span></div>
 </section>
 
 </body>
