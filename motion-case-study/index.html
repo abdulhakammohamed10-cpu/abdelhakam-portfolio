@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="دراسة حالة عن تصميم شخصية بيكسل وتحريكها ومزامنة حركتها مع الصوت في فيديو قصير.">
+<title>شخصيتي بتتكلم — دراسة حالة</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800;900&family=Inter:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root { --navy:#071426; --panel:#0C1E36; --line:#1E4C7A; --cyan:#00D9FF; --blue:#007BFF; --gold:#FFB547; --silver:#B8C7D9; --white:#fff; --claude:#D97757; }
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: Cairo, sans-serif; color: var(--white); background: var(--navy); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .page { width: 210mm; height: 297mm; padding: 16mm 15mm; position: relative; overflow: hidden; page-break-after: always;
+          background: radial-gradient(ellipse at 50% 0%, #0E2A4E 0%, var(--navy) 60%); }
+  .page:last-child { page-break-after: auto; }
+  .en { font-family: Inter, sans-serif; direction: ltr; unicode-bidi: isolate; }
+  h1 { font-size: 40px; font-weight: 900; line-height: 1.2; margin: 0; }
+  h2 { font-size: 26px; font-weight: 900; margin: 0 0 6px; }
+  h3 { font-size: 17px; font-weight: 800; margin: 14px 0 6px; color: var(--gold); }
+  p, li { font-size: 13.5px; line-height: 1.75; color: #DCE6F2; margin: 0 0 8px; }
+  .kicker { font-size: 13px; font-weight: 800; color: var(--cyan); letter-spacing: .5px; margin-bottom: 6px; }
+  .gold { color: var(--gold); } .cyan { color: var(--cyan); }
+  .chip { display: inline-block; padding: 4px 12px; border-radius: 999px; font-size: 12px; font-weight: 800; margin: 0 0 6px 6px; border: 1.5px solid var(--line); background: var(--panel); }
+  .card { background: var(--panel); border: 1.5px solid var(--line); border-radius: 14px; padding: 12px 14px; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  img { display: block; max-width: 100%; height: auto; border-radius: 10px; }
+  pre { direction: ltr; text-align: left; font-family: Inter, monospace; font-size: 10.5px; line-height: 1.55; white-space: pre-wrap; background: #050E1B; border: 1px solid var(--line); border-radius: 10px; padding: 9px 11px; margin: 4px 0 10px; color: #CFE3F7; }
+  table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  td, th { border-bottom: 1px solid var(--line); padding: 7px 8px; text-align: right; vertical-align: top; }
+  th { color: var(--gold); font-weight: 800; }
+  .num { display: inline-flex; width: 30px; height: 30px; border-radius: 15px; background: var(--gold); color: var(--navy); font-weight: 900; align-items: center; justify-content: center; margin-left: 8px; font-size: 15px; }
+  .footer { position: absolute; bottom: 9mm; left: 15mm; right: 15mm; display: flex; justify-content: space-between; font-size: 11px; color: var(--silver); opacity: .75; }
+  .flow { display: flex; gap: 8px; align-items: stretch; margin: 10px 0 14px; }
+  .flow .step { flex: 1; text-align: center; padding: 10px 6px; }
+  .flow .step b { display: block; font-size: 13px; margin-top: 4px; }
+  .flow .step span { font-size: 11px; color: var(--silver); }
+  .arrow { align-self: center; color: var(--gold); font-weight: 900; }
+  .stat { text-align: center; }
+  .stat b { display: block; font-family: Inter; font-size: 22px; color: var(--gold); }
+  .stat span { font-size: 11.5px; color: var(--silver); }
+  .phone { border: 3px solid #233a59; border-radius: 16px; overflow: hidden; }
+  .cap { font-size: 11px; color: var(--silver); text-align: center; margin-top: 4px; line-height: 1.5; }
+  .case-nav { display: none; }
+  @media screen {
+    .case-nav, .page { width: min(calc(100% - 32px), 880px); margin-inline: auto; }
+    .case-nav { display: flex; padding-block: 18px 0; }
+    .case-nav a { display: inline-flex; align-items: center; min-height: 44px; color: var(--cyan); text-underline-offset: 4px; }
+    .page { height: auto; margin-block: 16px; padding: clamp(16px, 5vw, 48px); overflow: visible; border: 1px solid var(--line); border-radius: 18px; }
+    .footer { position: static; gap: 12px; margin-top: 24px; }
+    .grid2 > *, .grid3 > *, .grid4 > *, .flow .step { min-width: 0; }
+    pre, td, th { overflow-wrap: anywhere; }
+    h1 { font-size: clamp(28px, 6vw, 40px); }
+    h2 { font-size: clamp(22px, 5vw, 26px); }
+  }
+  @media screen and (max-width: 620px) {
+    .grid2:not(.metrics-grid), .grid3 { grid-template-columns: minmax(0, 1fr) !important; }
+    .grid4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .flow { flex-wrap: wrap; }
+    .flow .step { flex-basis: calc(50% - 4px); }
+    .flow .arrow { display: none; }
+    .stat b { font-size: clamp(15px, 4.5vw, 22px); }
+    td, th { padding-inline: 4px; }
+  }
+</style>
+</head>
+<body>
+<nav class="case-nav" aria-label="معرض الأعمال">
+  <a href="../#videos">الرجوع لمعرض الأعمال</a>
+</nav>
+
+<!-- 1 — COVER -->
+<section class="page">
+  <div class="kicker">CASE STUDY · AI MOTION SHORT</div>
+  <h1>شخصيتي <span class="gold">بتتكلم</span>… من غير برنامج مونتاج</h1>
+  <p style="font-size:16px;margin-top:10px">إزاي اتعمل فيديو قصير (43 ثانية) بشخصية بيكسل بتتحرك وبتتكلم مع الصوت — الشخصية وفريماتها بـ<span class="en">ChatGPT</span>، والأنيميشن والتوقيت والتصدير بـ<span class="en">Claude Code</span>.</p>
+  <div style="margin:10px 0 12px">
+    <span class="chip en">ChatGPT</span><span class="chip en">Claude Code</span><span class="chip en">Remotion</span><span class="chip en">ElevenLabs</span><span class="chip en">faster-whisper</span><span class="chip en">ffmpeg</span>
+  </div>
+  <div class="grid2" style="align-items:start">
+    <div class="phone"><img src="img/cover.webp" width="960" height="1706" alt="غلاف حلقة شخصيتي بتتكلم"></div>
+    <div>
+      <div class="card" style="margin-bottom:10px">
+        <h3 style="margin-top:0">دوري</h3>
+        <p>الفكرة · السكريبت · توجيه الذكاء الاصطناعي (الشخصية والفريمات والصوت) · المراجعة والمونتاج النهائي · النشر</p>
+      </div>
+      <div class="grid2 metrics-grid">
+        <div class="card stat"><b class="en">43s</b><span>المدة</span></div>
+        <div class="card stat"><b class="en">1080×1920</b><span>المقاس</span></div>
+        <div class="card stat"><b class="en">40+</b><span>فريم للشخصية</span></div>
+        <div class="card stat"><b class="en">-14 LUFS</b><span>مستوى الصوت</span></div>
+      </div>
+      <div class="card" style="margin-top:10px">
+        <h3 style="margin-top:0">المنصات</h3>
+        <p class="en" style="text-align:right">Instagram Reels · TikTok · YouTube Shorts</p>
+      </div>
+    </div>
+  </div>
+  <div class="footer"><span class="en">@abdelhakam14</span><span class="en">1 / 7</span></div>
+</section>
+
+<!-- 2 — BRIEF + PIPELINE -->
+<section class="page">
+  <div class="kicker">THE BRIEF</div>
+  <h2>الفكرة</h2>
+  <p>ترند الريلز اللي فيه صانع المحتوى بيحكي <b>«عملت إيه بـClaude Code»</b> خطوة بخطوة. الهدف كان فيديو بنفس الشكل لكن بقصة <b>حقيقية</b> من شغل القناة: إزاي الشخصية بتاعتي بقت بطلة الفيديوهات من غير ما أفتح برنامج مونتاج.</p>
+  <div class="grid3" style="margin:10px 0">
+    <div class="card"><h3 style="margin-top:0">الهدف</h3><p>فيديو أقل من دقيقة، الشخصية فيه <b>بتتكلم فعلاً</b> مع الصوت، ويجيب تفاعل.</p></div>
+    <div class="card"><h3 style="margin-top:0">الجمهور</h3><p>صناع محتوى ومهتمين بالـAI في مصر والعالم العربي.</p></div>
+    <div class="card"><h3 style="margin-top:0">الـCTA</h3><p>«اكتب <span class="en">motion</span>» في الكومنتات ← بيوصله الدليل الكامل والبرومبتات.</p></div>
+  </div>
+  <div class="kicker" style="margin-top:14px">THE PIPELINE</div>
+  <h2>مراحل الشغل</h2>
+  <div class="flow">
+    <div class="card step">🎨<b>الشخصية</b><span class="en">ChatGPT</span></div><div class="arrow">←</div>
+    <div class="card step">🕺<b>الحركات + البُق</b><span class="en">ChatGPT</span></div><div class="arrow">←</div>
+    <div class="card step">🎙️<b>الصوت</b><span class="en">ElevenLabs</span></div><div class="arrow">←</div>
+    <div class="card step">🎬<b>الأنيميشن</b><span class="en">Claude Code + Remotion</span></div><div class="arrow">←</div>
+    <div class="card step">🚀<b>التصدير والنشر</b><span class="en">ffmpeg</span></div>
+  </div>
+  <h3>هيكل الفيديو (43 ثانية)</h3>
+  <table>
+    <tr><th>الجزء</th><th>الكلام</th><th>على الشاشة</th></tr>
+    <tr><td>الهوك</td><td>«إزاي الشخصية دي بقت بطلة فيديوهاتي… وأنا عمري ما فتحت برنامج مونتاج؟»</td><td>الشخصية على ورقة بتتكلم + برنامج مونتاج عليه ✗</td></tr>
+    <tr><td>ChatGPT</td><td>«عملت الشخصية في شات جي بي تي… بكل الحركات، وكل شكل للبُق»</td><td>شاشة شات + الحركات بتطلع + أشكال البُق</td></tr>
+    <tr><td>Claude Code</td><td>«خليها تتحرك، وتشاور، وتتفاجئ مع الكلام»</td><td>شاشة Claude Code فوق معاينة الشخصية</td></tr>
+    <tr><td>الكلام</td><td>«اكتب الكلام جنبها… كلمة كلمة»</td><td>فقاعة الكلام بتظهر كلمة كلمة</td></tr>
+    <tr><td>الصوت</td><td>«ضفت صوتي، وهو ظبط التوقيت على كل كلمة»</td><td>موجة صوت + علامات التوقيت</td></tr>
+    <tr><td>القفلة</td><td>«اكتب موشن في الكومنتات… وكل ده بدأ من صورة»</td><td>كومنت «motion» ← الصورة ترجع ← زرار تابعني</td></tr>
+  </table>
+  <div class="footer"><span class="en">@abdelhakam14</span><span class="en">2 / 7</span></div>
+</section>
+
+<!-- 3 — CHARACTER -->
+<section class="page">
+  <div class="kicker">STEP 1 · CHARACTER</div>
+  <h2><span class="num">1</span>الشخصية وكل حركاتها — <span class="en">ChatGPT</span></h2>
+  <p>من صورة شخصية واحدة لشخصية بيكسل آرت، وبعدها شيت كامل بكل الحركات بنفس الشكل والمقاس.</p>
+  <img src="img/poses-grid.webp" width="1260" height="520" loading="lazy" alt="شبكة حركات الشخصية" style="margin:8px 0 6px">
+  <div class="cap">12 حركة: وقفة · تشاور · مفاجأة · تفكير · تسليم · لايك · مشي (3 فريمات) · ذهول · صباع واحد · 3 صوابع</div>
+  <h3>برومبت الشخصية</h3>
+  <pre>Turn the person in the attached photo into a full-body pixel-art game character. Keep his face, hair, beard and outfit recognizable. Clean pixel-art style with a dark outline, front-facing 3/4 view, standing pose, plain white background, no text.</pre>
+  <h3>برومبت كل الحركات</h3>
+  <pre>Using the attached pixel-art character exactly as it is (same style, colors, face, outfit and size), create a sprite sheet on a plain white background with these poses, each full body and the same scale: idle standing, pointing to the side, surprised (hands up), thinking (hand on chin), waving, thumbs up, walking (3 frames), mind-blown (hands on head), celebrating jump, holding up 1 finger, holding up 3 fingers. Evenly spaced grid, no text.</pre>
+  <div class="card"><p style="margin:0">💡 <b>الدرس:</b> رفع صورة الشخصية الأصلية مع كل برومبت هو اللي بيحافظ على نفس الشكل. لما اتولّدت شخصية من غير الصورة الأصلية، طلعت مختلفة واترفضت.</p></div>
+  <div class="footer"><span class="en">@abdelhakam14</span><span class="en">3 / 7</span></div>
+</section>
+
+<!-- 4 — LIP SYNC -->
+<section class="page">
+  <div class="kicker">STEP 2 · LIP SYNC</div>
+  <h2><span class="num">2</span>أشكال البُق — الشخصية بتتكلم فعلاً</h2>
+  <div class="grid2" style="grid-template-columns: 1.05fr 1fr; align-items:start">
+    <div>
+      <img src="img/mouth-grid.webp" width="920" height="1440" loading="lazy" alt="أربعة أشكال للفم في كل وضع من أوضاع الشخصية">
+      <div class="cap">6 أوضاع × 4 أشكال للبُق: مقفول · نص مفتوح · «أو» · مفتوح</div>
+    </div>
+    <div>
+      <p>لكل حركة الشخصية بتتكلم فيها، اتولّدت 4 نسخ <b>متطابقة في كل حاجة إلا البُق</b>.</p>
+      <pre>Using the attached pixel-art character exactly as it is (same pose, same pixels, same colors, same outfit), create 4 versions side by side on a plain white background, identical in every way except the mouth: 1) mouth closed (neutral smile), 2) mouth half open, 3) mouth round "O", 4) mouth wide open talking. Same size and position in all 4.</pre>
+      <h3>إزاي اتظبطت جوّه الفيديو</h3>
+      <ul style="padding-right:18px;margin:0">
+        <li>كل فريم <b>اتقص أوتوماتيك</b> من الخلفية واتظبط على مقاس ومكان الحركة الأصلية بالظبط — من غير أي قفزة.</li>
+        <li>توقيت كل كلمة في الصوت بيحدد <b>إمتى البُق يتفتح</b>، وبيبدّل بين الأشكال الأربعة مع المقاطع.</li>
+        <li>لما الشخصية تسكت، البُق بيقفل لوحده.</li>
+        <li>الحركات اللي البُق فيها مفتوح أصلاً (المفاجأة) مش محتاجة فريمات.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer"><span class="en">@abdelhakam14</span><span class="en">4 / 7</span></div>
+</section>
+
+<!-- 5 — CLAUDE CODE -->
+<section class="page">
+  <div class="kicker">STEP 3 · ANIMATION</div>
+  <h2><span class="num">3</span>الأنيميشن والمونتاج — <span class="en">Claude Code + Remotion</span></h2>
+  <p>الفيديو كله اتعمل بالكود (<span class="en">Remotion</span>) — وأنا بكلّم <span class="en">Claude Code</span> بالعربي زي ما بكلّم مونتير، وهو بيكتب ويعدّل ويصدّر.</p>
+  <h3>الإعداد</h3>
+  <pre>npx skills add remotion-dev/skills
+# remotion-best-practices · remotion-create · remotion-captions · remotion-markup · remotion-multimedia · remotion-render</pre>
+  <h3>أمثلة من الطلبات</h3>
+  <table>
+    <tr><th>الطلب</th><th>اللي حصل</th></tr>
+    <tr><td>«خلّي الشخصية تتحرك وتشاور وتتفاجئ مع الكلام»</td><td>جدول حركات مربوط بكلمات معينة في الصوت</td></tr>
+    <tr><td>«اكتب الكلام جنبها كلمة كلمة»</td><td>كل كلمة بتظهر وقت ما بتتقال — من غير ما تبيّن اللي جاي</td></tr>
+    <tr><td>«عايز الخلفية والألوان بهوية القناة»</td><td>كحلي + شبكة سماوي + تفاصيل دهبي</td></tr>
+    <tr><td>«حاسس إن المقاس مش مظبوط في الريلز»</td><td>كل المحتوى اتنقل جوّه المنطقة الآمنة بعيد عن أزرار إنستجرام</td></tr>
+    <tr><td>«زوّد تابعني في الآخر»</td><td>زرار + صباع بيدوس + جرس + الـhandle</td></tr>
+  </table>
+  <h3>تفاصيل الحركة</h3>
+  <div class="grid3">
+    <div class="card"><p style="margin:0">🫁 تنفّس خفيف وهي واقفة</p></div>
+    <div class="card"><p style="margin:0">🔀 انتقال ناعم بين الحركات</p></div>
+    <div class="card"><p style="margin:0">🚶 مشي بـ4 خطوات داخل المعاينة</p></div>
+    <div class="card"><p style="margin:0">💥 «بوب» عند كل حركة جديدة</p></div>
+    <div class="card"><p style="margin:0">🔊 مؤثرات صوت على كل لحظة مهمة</p></div>
+    <div class="card"><p style="margin:0">🔁 النهاية بترجع للبداية (لوب)</p></div>
+  </div>
+  <div class="footer"><span class="en">@abdelhakam14</span><span class="en">5 / 7</span></div>
+</section>
+
+<!-- 6 — VOICE + STORYBOARD -->
+<section class="page">
+  <div class="kicker">STEP 4 · VOICE</div>
+  <h2><span class="num">4</span>الصوت</h2>
+  <div class="grid2">
+    <div class="card"><h3 style="margin-top:0">كلون الصوت — <span class="en">ElevenLabs</span></h3><p style="margin:0">اتجرّبت أكتر من نسخة كلون، والإعدادات الأثبت (<span class="en">Eleven v4</span>، ثبات عالي) اتختارت عشان الصوت مايتغيرش في نص الجملة.</p></div>
+    <div class="card"><h3 style="margin-top:0">اللهجة المصرية</h3><p style="margin:0">كلمة «قلتله» كانت بتتنطق فصحى، فالجملة اتعادت صياغتها لـ«طلبت منه» عشان تتقال مصري صح — والنص على الشاشة اتعدّل معاها.</p></div>
+    <div class="card"><h3 style="margin-top:0">توقيت كل كلمة</h3><p style="margin:0">التوقيتات جاية من <span class="en">ElevenLabs</span> نفسه، وللجملة اللي اتولّدت يدوي استُخدم <span class="en">faster-whisper</span> على الجهاز.</p></div>
+    <div class="card"><h3 style="margin-top:0">المكساج</h3><p style="margin:0">كل الجمل على نفس المستوى، والمزيكا بتوطى تحت الكلام، والنهائي <b>-14 LUFS</b> زي معايير المنصات.</p></div>
+  </div>
+  <div class="kicker" style="margin-top:14px">STORYBOARD</div>
+  <h2>لقطات من الفيديو</h2>
+  <div class="grid4">
+    <div><div class="phone"><img src="img/still-1.5.jpg" width="540" height="960" loading="lazy" alt=""></div><div class="cap">الهوك</div></div>
+    <div><div class="phone"><img src="img/still-9.5.jpg" width="540" height="960" loading="lazy" alt=""></div><div class="cap">الفريمات في ChatGPT</div></div>
+    <div><div class="phone"><img src="img/still-14.5.jpg" width="540" height="960" loading="lazy" alt=""></div><div class="cap">Claude Code + المعاينة</div></div>
+    <div><div class="phone"><img src="img/still-18.5.jpg" width="540" height="960" loading="lazy" alt=""></div><div class="cap">بيشاور ويتفاجئ</div></div>
+  </div>
+  <div class="footer"><span class="en">@abdelhakam14</span><span class="en">6 / 7</span></div>
+</section>
+
+<!-- 7 — STORYBOARD 2 + RESULT -->
+<section class="page">
+  <div class="grid4">
+    <div><div class="phone"><img src="img/still-23.5.jpg" width="540" height="960" loading="lazy" alt=""></div><div class="cap">الكلام كلمة كلمة</div></div>
+    <div><div class="phone"><img src="img/still-28.5.jpg" width="540" height="960" loading="lazy" alt=""></div><div class="cap">الصوت والتوقيت</div></div>
+    <div><div class="phone"><img src="img/still-33.5.jpg" width="540" height="960" loading="lazy" alt=""></div><div class="cap">البرومبت الكامل + «motion»</div></div>
+    <div><div class="phone"><img src="img/still-41.5.jpg" width="540" height="960" loading="lazy" alt=""></div><div class="cap">رجوع للصورة + تابعني</div></div>
+  </div>
+  <div class="kicker" style="margin-top:16px">DELIVERABLES</div>
+  <h2>التسليمات</h2>
+  <table>
+    <tr><td>🎬 الفيديو النهائي</td><td class="en" style="text-align:right">MP4 · H.264 · 1080×1920 · 30fps · AAC 256k · −14 LUFS · 43s</td></tr>
+    <tr><td>🖼️ الغلاف</td><td>مظبوط على عرض البروفايل في إنستجرام (3:4)</td></tr>
+    <tr><td>📝 الكابشن والهاشتاجات</td><td>نسخة لكل منصة + كومنت مثبّت</td></tr>
+    <tr><td>📘 الـLead magnet</td><td>دليل كامل + رسايل جاهزة للي بيكتب «motion»</td></tr>
+  </table>
+  <h3>اللي اتعلمته</h3>
+  <ul style="padding-right:18px">
+    <li><b>هوية الشخصية أهم من الجودة:</b> شخصية مختلفة شوية بتكسر علاقة المتابع بالقناة.</li>
+    <li><b>البُق اللي بيتحرك</b> هو اللي بيحوّل الصورة لشخصية بتتكلم — 4 فريمات لكل حركة كفاية.</li>
+    <li><b>الـAI مش بيعرف اللهجة لوحده:</b> أحياناً الحل تغيير الكلمة مش تغيير الإعدادات.</li>
+    <li><b>المراجعة فريم فريم</b> (المنطقة الآمنة، اللحظات الفاضية، مستوى الصوت) هي اللي بتفرق بين فيديو عادي وفيديو احترافي.</li>
+  </ul>
+  <div class="card" style="text-align:center;margin-top:10px">
+    <p style="margin:0;font-size:15px"><b>تابع</b> <span class="en cyan" style="font-weight:800">@abdelhakam14</span> عشان كل جديد في الـAI ⚡</p>
+  </div>
+  <div class="footer"><span class="en">@abdelhakam14</span><span class="en">7 / 7</span></div>
+</section>
+
+</body>
+</html>
