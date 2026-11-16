@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>احمي أهلك من نصب الصوت المزيّف | @abdelhakam14</title>
+<meta name="description" content="دليل عملي بالمصري: إزاي تتحقق من فويس أو مكالمة بصوت متقلّد بالذكاء الاصطناعي من رقم غريب، وتعمل إيه لو اتنصب عليك.">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;800;900&family=Inter:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#071426;--panel:#0C1E36;--line:#1E4C7A;--cyan:#00D9FF;--silver:#B8C7D9;--gold:#FFB547;--red:#FF3B5C;--green:#2EE59D}
+*{box-sizing:border-box}
+html{background:var(--navy)}
+body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% 0%,#3a0f1f 0%,var(--navy) 55%) no-repeat;color:#fff;font-family:Cairo,sans-serif;line-height:1.75}
+main{max-width:760px;margin:0 auto;padding:26px 16px 60px}
+.en{font-family:Inter,sans-serif;direction:ltr;unicode-bidi:isolate}
+h1{font-weight:900;font-size:clamp(28px,7vw,42px);line-height:1.3;margin:4px 0 6px}
+h1 b{color:var(--red)}
+.sub{color:var(--silver);margin:0 0 14px}
+.fact{background:#ffffff0d;border:1px solid #ffffff22;border-radius:14px;padding:10px 14px;font-size:15px;color:var(--silver)}
+.fact b{color:#fff}
+nav{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 6px}
+nav a{background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:4px 14px;color:#fff;text-decoration:none;font-weight:800;font-size:15px}
+section{background:var(--panel);border:2px solid var(--line);border-radius:18px;padding:16px 18px;margin:16px 0}
+section.red{border-color:var(--red)} section.gold{border-color:var(--gold)} section.green{border-color:var(--green)}
+h2{font-weight:900;font-size:23px;margin:0 0 8px;display:flex;gap:10px;align-items:center}
+h2 .n{flex:none;width:36px;height:36px;border-radius:50%;background:var(--cyan);color:var(--navy);display:inline-flex;align-items:center;justify-content:center;font:800 19px Inter,sans-serif}
+ul,ol{padding-inline-start:22px;margin:6px 0} li{margin:5px 0}
+.ok li::marker{content:"✓  ";color:var(--green)} .no li::marker{content:"✗  ";color:var(--red)}
+.tip{color:var(--gold);font-weight:800}
+.path{display:inline-block;background:#ffffff12;border-radius:8px;padding:0 8px;font-weight:800}
+.flags{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:8px}
+.flag{background:#FF3B5C1a;border:1px solid var(--red);border-radius:12px;padding:8px 12px;font-weight:800}
+.flag small{display:block;color:var(--silver);font-weight:600}
+.box{position:relative;background:#06101f;border:1px dashed var(--gold);border-radius:14px;padding:46px 14px 12px;margin-top:10px;white-space:pre-wrap;font-weight:700}
+.copy{position:absolute;top:8px;left:8px;font:800 15px Cairo,sans-serif;background:var(--gold);color:var(--navy);border:0;border-radius:999px;padding:4px 16px;cursor:pointer}
+.share{display:block;width:100%;margin:22px 0 0;font:900 20px Cairo,sans-serif;background:var(--green);color:var(--navy);border:0;border-radius:999px;padding:12px;cursor:pointer}
+footer{margin-top:30px;text-align:center;color:var(--silver);font-size:15px}
+footer a{color:var(--cyan);font-weight:800;text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<h1>احمي أهلك من <b>نصب الصوت المزيّف</b></h1>
+<p class="sub">دليل عملي بالمصري… اقراه في 3 دقايق، وابعته لبابا وماما.</p>
+<p class="fact">في اختبار عملته شركة <b class="en">McAfee</b>، <b>3 ثواني</b> بس من صوت حد كانوا كفاية يعملوا نسخة شبهه بنسبة <b class="en">85%</b>. والنسخة دي ممكن تتكلم <b>لايف في مكالمة</b>، مش فويس متسجّل وبس. وفي دراسة بريطانية، الناس كشفت الأصوات المزيّفة <b>حوالي نص المرات بس</b>. يعني <b>ودنك لوحدها مش هتحميك</b>… اللي هيحميك هو طريقة التحقق.</p>
+
+<nav>
+<a href="#flags">🚩 العلامات</a><a href="#call">📞 اتصل إنت</a><a href="#word">🔑 كلمة السر</a><a href="#q">❓ سؤال التحقق</a><a href="#num">🔎 افحص الرقم</a><a href="#pay">💸 قبل التحويل</a><a href="#ear">👂 ودنك</a><a href="#late">🆘 لو حوّلت</a><a href="#family">👨‍👩‍👦 رسالة للعيلة</a>
+</nav>
+
+<section class="red" id="flags">
+<h2>🚩 السيناريو اللي بيتكرر</h2>
+<p>فويس أو مكالمة <b>من رقم غريب</b> بصوت حد من العيلة: «تليفوني اتكسر، ده رقم الراجل… حوّل دلوقتي». لو شفت <b>اتنين</b> من دول مع بعض، وقّف:</p>
+<div class="flags">
+<div class="flag">📱 رقم جديد + حجة جاهزة<small>«تليفوني اتكسر / فصل شحن / ده رقم صاحبي»</small></div>
+<div class="flag">⏱️ استعجال<small>«دلوقتي حالًا… قبل ما الراجل يمشي»</small></div>
+<div class="flag">💸 الفلوس رايحة لحد تاني<small>محفظة أو حساب مش باسم قريبك</small></div>
+<div class="flag">🤫 سرية<small>«ماتقولش لحد / ماتقلقش ماما»</small></div>
+<div class="flag">🔢 بيطلب كود<small>«هيوصلك كود… ابعتهولي»</small></div>
+<div class="flag">😭 موقف مرعب<small>حادثة، قسم، مستشفى، حد مخطوف</small></div>
+</div>
+</section>
+
+<section class="gold" id="call">
+<h2><span class="n">1</span> اتصل إنت… من قناة تانية</h2>
+<p>دي أقوى خطوة، واسمها في الأمن «<b>التحقق من قناة منفصلة</b>»: ماتصدّقش الرسالة اللي جاتلك، واتأكد بطريق إنت اللي اخترته.</p>
+<ul class="ok">
+<li><b>اتصل بالرقم القديم المتسجّل عندك</b>، بمكالمة تليفون عادية (مش واتساب).</li>
+<li>لو مابيردّش، كلّم حد معاه أو قريب منه: مراته، صاحبه، شغله.</li>
+</ul>
+<ul class="no">
+<li><b>ماترجعش تكلّم الرقم الغريب</b>: النصاب ممكن يرد عليك لايف بنفس الصوت المزيّف.</li>
+<li><b>ماتعتمدش على واتساب</b>: لو حساب قريبك نفسه اتسرق، النصاب هو اللي هيرد من رقمه الحقيقي.</li>
+<li><b>ماتثقش في الرقم اللي ظاهر في المكالمة الجاية</b>: رقم المتصل ممكن يتزيّف (<span class="en">spoofing</span>) ويظهر إنه رقم ابنك. القاعدة: <b>إنت</b> اللي تتصل، مش هو.</li>
+</ul>
+</section>
+
+<section class="gold" id="word">
+<h2><span class="n">2</span> كلمة سر للعيلة</h2>
+<p>ده نظام «<b>سؤال وجواب سري</b>» زي اللي البنوك بتستخدمه، وده أول نصيحة في تحذير الـ<span class="en">FBI</span> من نصب الذكاء الاصطناعي. النسخة المزيّفة بتقلّد الصوت، لكن مش بتعرف السر اللي بينكم.</p>
+<ul class="ok">
+<li>اتفقوا عليها <b>وإنتو قاعدين مع بعض</b>، مش في شات (الشات نفسه ممكن يتسرق).</li>
+<li>تكون غريبة ومتتخمّنش، زي: «بطاطس بالشوكولاتة» أو «الكنبة البمبي».</li>
+<li>القاعدة: <b>أي طلب فلوس طارئ = لازم كلمة السر</b>، حتى لو الصوت 100% صوته.</li>
+</ul>
+<ul class="no">
+<li>مش اسم حيوان أليف أو تاريخ ميلاد أو اسم مدرسة… دول على الفيسبوك.</li>
+<li>لو اتقالت في رسالة مكتوبة أو قدام حد، غيّروها.</li>
+</ul>
+</section>
+
+<section class="gold" id="q">
+<h2><span class="n">3</span> سؤال مالوش إجابة على النت</h2>
+<p>لو مفيش كلمة سر، اسأل عن حاجة <b>محصلتش أونلاين</b>:</p>
+<ul class="ok">
+<li>«أكلنا إيه آخر مرة اتقابلنا؟»</li>
+<li>«مين اللي كان معانا في العربية يوم كذا؟»</li>
+</ul>
+<ul class="no">
+<li>ماتسألش حاجة ممكن تتعرف من صوره أو بوستاته (اسم مراته، شغله، المدينة اللي فيها).</li>
+<li>ماتديش الإجابة في السؤال: «إنت مش كنت في اسكندرية؟» ← النصاب هيقولك «آه».</li>
+</ul>
+</section>
+
+<section class="green" id="num">
+<h2><span class="n">4</span> افحص الرقم في 30 ثانية</h2>
+<ul>
+<li><b>تطبيق كاشف أرقام</b> زي <span class="en">Truecaller</span>: بيظهر الاسم اللي الناس مسجّلة بيه الرقم، ولو عليه بلاغات نصب. (لو مفيش بلاغات، ده مش معناه إنه أمان.)</li>
+<li><b>كود الدولة</b>: الرقم المصري بيبدأ بـ<span class="en">+20</span>. لو «ابنك اللي في مصر» بيكلّمك من كود دولة تانية، ده علامة.</li>
+<li><b>صورة البروفايل مش دليل</b>: سهل جدًا ياخدوها من الفيسبوك بتاعه.</li>
+</ul>
+</section>
+
+<section class="green" id="pay">
+<h2><span class="n">5</span> قبل ما تدوس «تأكيد التحويل»</h2>
+<ul>
+<li><b>الفلوس رايحة لمين؟</b> لو تطبيق التحويل بيظهرلك اسم صاحب الحساب أو المحفظة قبل التأكيد، بصّ عليه. لو مش اسم قريبك، وقّف.</li>
+<li><b>«حوّل على رقم الراجل»</b> لوحدها علامة كفاية: الطوارئ الحقيقية مش لازم تتحل بتحويل لحد غريب في 5 دقايق.</li>
+<li><b>أي كود يوصلك في رسالة (<span class="en">OTP</span>) ماتبعتهوش لحد</b>، حتى لو بيقول إنه قريبك. ده الكود اللي بيسرقوا بيه حساب الواتساب أو البنك.</li>
+<li><b>خد 10 دقايق</b>: النصاب بيعتمد على إنك تتصرف وإنت مرعوب. أي حد حقيقي هيستنى لحد ما تتأكد.</li>
+</ul>
+</section>
+
+<section id="ear">
+<h2><span class="n">6</span> ودنك مش جهاز كشف</h2>
+<p>علامات <b>ممكن</b> تلاحظها: نَفَس مش طبيعي، نبرة واحدة مفيهاش انفعال حقيقي، جمل قصيرة ومقطّعة، خلفية ساكتة زيادة أو بتتقطع، أو بيتهرّب من أي سؤال خارج القصة.</p>
+<p class="tip">⚠️ لو مالقيتش ولا علامة، ده مش معناه إن الصوت حقيقي. برامج كشف الأصوات المزيّفة موجودة، بس نتايجها متفاوتة لحد دلوقتي. اعتمد على الخطوات من 1 لـ5، مش على ودنك.</p>
+</section>
+
+<section id="voice">
+<h2><span class="n">7</span> قلّل صوتك وصورتك المتاحين</h2>
+<ul>
+<li>الـ<span class="en">FBI</span> بينصح تخلي حساباتك اللي فيها فيديوهات بصوتك ووشك <b>برايفت</b> لو مش محتاجها عامة.</li>
+<li>لو جالك اتصال من رقم مش معروف، ماتطوّلش في الكلام لحد ما تعرف مين.</li>
+<li>كبار السن في العيلة هما أكتر ناس مستهدفين… اقعد معاهم وفهّمهم بنفسك.</li>
+</ul>
+</section>
+
+<section class="red" id="late">
+<h2>🆘 لو حوّلت الفلوس خلاص… كل دقيقة فارقة</h2>
+<ol>
+<li><b>كلّم خدمة عملاء البنك أو المحفظة اللي حوّلت منها فورًا</b>، وبلّغ إنها عملية نصب واطلب إيقافها أو استرجاعها.</li>
+<li><b>ماتمسحش حاجة:</b> صوّر الشات والفويس ورقم النصاب وإيصال التحويل.</li>
+<li><b>اعمل بلاغ رسمي</b> في أقرب قسم شرطة أو لمباحث الإنترنت، ومعاك الصور دي.</li>
+<li>في واتساب: افتح الشات ← اسم الرقم ← <b>حظر وإبلاغ</b>.</li>
+<li>قول لباقي العيلة فورًا، النصاب غالبًا هيجرّب معاهم كمان.</li>
+<li><b>خلي بالك من النصبة التانية:</b> لو حد كلّمك بعدها وقالك «ادفع رسوم ونرجّعلك فلوسك»، ده نصاب تاني.</li>
+</ol>
+</section>
+
+<section id="family">
+<h2>👨‍👩‍👦 رسالة جاهزة ابعتها لجروب العيلة</h2>
+<div class="box"><button class="copy" type="button" data-t="msg">نسخ الرسالة</button><span id="msg">يا جماعة خلّوا بالكم 🙏
+فيه نصب جديد بالذكاء الاصطناعي: بيقلّدوا صوت حد من العيلة ويبعتوا فويس أو يتصلوا من رقم غريب، ويقولوا إن التليفون اتكسر وفي مشكلة ومحتاجين فلوس حالًا. الصوت بيطلع شبه الحقيقي بالظبط.
+
+اتفقنا:
+1) أي طلب فلوس طارئ لازم يتقال معاه كلمة السر بتاعتنا (هنتفق عليها لما نتقابل، مش هنا).
+2) محدش يحوّل ولا جنيه قبل ما يقفل ويتصل بالرقم القديم المتسجّل عنده، مكالمة عادية مش واتساب.
+3) محدش يبعت لحد أي كود يوصله في رسالة.
+4) لو جالكم حاجة زي دي، قولوا على الجروب فورًا.</span></div>
+</section>
+
+<button class="share" id="share" type="button">↗ ابعت الدليل ده لأهلك</button>
+
+<footer>
+<p>المصادر: اختبار <span class="en">McAfee</span> زي ما نشرته <span class="en">Fortune</span> (أكتوبر 2026)، وتحذير الـ<span class="en">FBI</span> رقم <span class="en">I-120324-PSA</span> عن نصب الذكاء الاصطناعي (ديسمبر 2024). الدليل ده للتوعية، ومش بديل عن البلاغ الرسمي.</p>
+<p>تابعني <a class="en" href="https://instagram.com/abdelhakam14">@abdelhakam14</a> عشان كل جديد في الـ<span class="en">AI</span> ⚡</p>
+</footer>
+</main>
+<script>
+document.querySelectorAll(".copy").forEach(function (b) {
+  b.addEventListener("click", function () {
+    var t = document.getElementById(b.dataset.t).innerText;
+    var done = function () { var o = b.textContent; b.textContent = "✓ اتنسخت"; setTimeout(function () { b.textContent = o; }, 1800); };
+    if (navigator.clipboard) navigator.clipboard.writeText(t).then(done, function () { fallback(t); done(); });
+    else { fallback(t); done(); }
+  });
+});
+function fallback(t) { var a = document.createElement("textarea"); a.value = t; document.body.appendChild(a); a.select(); try { document.execCommand("copy"); } catch (e) {} a.remove(); }
+document.getElementById("share").addEventListener("click", function () {
+  var data = { title: document.title, text: "احمي أهلك من نصب الصوت المزيّف بالذكاء الاصطناعي 🙏", url: location.href };
+  if (navigator.share) navigator.share(data).catch(function () {});
+  else { fallback(data.text + "\n" + data.url); this.textContent = "✓ اتنسخ اللينك… ابعته لأهلك"; }
+});
+</script>
+</body>
+</html>
