@@ -1,0 +1,1986 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="nocturne">
+  <title>تشريح الثقوب السوداء — دليل تفاعلي في فيزياء الكون</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@1.43.0/dist/umd/lucide.min.js" defer></script>
+  <style>
+    :root {
+      color-scheme: dark;
+
+      /* 1. Nocturne base adapted to Dark Navy with Cyan & Orange accents */
+      --background: #070d1b;
+      --surface-container-low: #0b1428;
+      --surface-container: #101c36;
+      --surface-container-high: #172748;
+
+      --on-surface: #f1f5f9;
+      --on-surface-variant: #9eb0c9;
+
+      --outline: #374f78;
+      --outline-variant: #1e3052;
+
+      --primary: #38bdf8;
+      --on-primary: #061224;
+      --primary-container: #0d2a45;
+      --on-primary-container: #bae6fd;
+
+      --secondary: #687fa3;
+      --tertiary: #fb923c;
+      --on-tertiary: #220e02;
+      --tertiary-container: #381d0d;
+      --on-tertiary-container: #fed7aa;
+
+      --error: #f87171;
+      --on-error: #1f0606;
+
+      /* Data series */
+      --data-1: #38bdf8;
+      --data-2: #fb923c;
+      --data-3: #4ade80;
+      --data-4: #a78bfa;
+      --data-context: #475e85;
+
+      /* Fonts (Arabic first, monospace for tabular/Latin metrics) */
+      --font-headline: 'Cairo', 'IBM Plex Sans Arabic', sans-serif;
+      --font-body: 'IBM Plex Sans Arabic', sans-serif;
+      --font-label: 'IBM Plex Sans Arabic', 'IBM Plex Mono', monospace;
+      --font-mono: 'IBM Plex Mono', 'IBM Plex Sans Arabic', monospace;
+
+      /* Shape */
+      --rounded: 0.375rem;
+      --rounded-lg: 0.625rem;
+      --rounded-full: 9999px;
+
+      /* Style effects */
+      --hairline: 1px solid var(--outline-variant);
+      --hairline-strong: 1px solid var(--outline);
+      --panel-highlight: inset 0 1px 0 rgba(241, 245, 249, 0.06);
+      --hero-wash: radial-gradient(circle at 18% 15%, rgba(56, 189, 248, 0.12), transparent 46%),
+                   radial-gradient(circle at 84% 24%, rgba(251, 146, 60, 0.10), transparent 44%);
+      --cyan-tint: color-mix(in srgb, var(--primary) 13%, transparent);
+      --orange-tint: color-mix(in srgb, var(--tertiary) 13%, transparent);
+      --cyan-border: color-mix(in srgb, var(--primary) 38%, transparent);
+      --orange-border: color-mix(in srgb, var(--tertiary) 40%, transparent);
+      --positive-tint: color-mix(in srgb, var(--positive) 13%, transparent);
+      --positive-border: color-mix(in srgb, var(--positive) 40%, transparent);
+      --error-tint: color-mix(in srgb, var(--error) 13%, transparent);
+      --error-border: color-mix(in srgb, var(--error) 40%, transparent);
+      --shadow-glow-cyan: 0 0 24px rgba(56, 189, 248, 0.22);
+      --shadow-glow-orange: 0 0 24px rgba(251, 146, 60, 0.22);
+
+      /* 3. Shared tokens */
+      --positive: #4ade80;
+      --warning: #fbbf24;
+      --focus: #38bdf8;
+
+      /* Narrative type scale */
+      --display-size: clamp(2.15rem, 1.4rem + 3vw, 3.6rem);
+      --headline-size: clamp(1.55rem, 1.15rem + 1.5vw, 2.25rem);
+      --subhead-size: clamp(1.15rem, 1.02rem + 0.5vw, 1.4rem);
+      --body-size: clamp(1rem, 0.96rem + 0.22vw, 1.125rem);
+      --label-size: clamp(0.75rem, 0.72rem + 0.14vw, 0.85rem);
+
+      /* Spacing scale (4pt base) */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 5.5rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html {
+      scroll-behavior: smooth;
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+    }
+    body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.7;
+    }
+    header { position: static !important; }
+
+    button, input, select, textarea {
+      font-family: inherit;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    .page-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-2xl);
+      padding: var(--space-lg);
+      max-width: 1200px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Typography */
+    h1, h2, h3, h4 {
+      font-family: var(--font-headline);
+      margin: 0;
+      color: var(--on-surface);
+      letter-spacing: 0;
+    }
+    p {
+      margin: 0;
+      color: var(--on-surface-variant);
+      max-width: 65ch;
+    }
+    strong {
+      color: var(--on-surface);
+      font-weight: 600;
+    }
+    .mono-num {
+      font-family: var(--font-mono);
+      font-variant-numeric: tabular-nums;
+      direction: ltr;
+      display: inline-block;
+    }
+
+    /* Nocturne panels & observation wells */
+    .panel {
+      background: var(--surface-container);
+      border: var(--hairline);
+      box-shadow: var(--panel-highlight);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+    }
+    .observation-well {
+      background: var(--background);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+    }
+
+    /* Hero section */
+    .hero-header {
+      background-color: var(--background);
+      background-image: var(--hero-wash);
+      border-bottom: var(--hairline);
+      padding: var(--space-2xl) var(--space-lg) var(--space-xl);
+    }
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+      align-items: center;
+    }
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      color: var(--primary);
+      background: var(--cyan-tint);
+      border: 1px solid var(--cyan-border);
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--rounded);
+      margin-bottom: var(--space-md);
+    }
+    .hero-title {
+      font-size: var(--display-size);
+      font-weight: 800;
+      line-height: 1.18;
+      margin-bottom: var(--space-md);
+    }
+    .hero-title .accent-cyan { color: var(--primary); }
+    .hero-title .accent-orange { color: var(--tertiary); }
+    .hero-lede {
+      font-size: var(--subhead-size);
+      line-height: 1.65;
+      color: var(--on-surface-variant);
+      margin-bottom: var(--space-lg);
+    }
+    .hero-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-md);
+    }
+    .hero-stat {
+      background: var(--surface-container-low);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      box-shadow: var(--panel-highlight);
+    }
+    .hero-stat-label {
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+      margin-bottom: var(--space-xs);
+    }
+    .hero-stat-val {
+      font-family: var(--font-headline);
+      font-size: clamp(1.25rem, 1rem + 0.8vw, 1.65rem);
+      font-weight: 700;
+      color: var(--on-surface);
+      line-height: 1.2;
+    }
+    .hero-stat-val.cyan { color: var(--primary); }
+    .hero-stat-val.orange { color: var(--tertiary); }
+    .hero-stat-sub {
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+      margin-top: var(--space-xs);
+    }
+
+    /* Quick Jump Navigation Bar */
+    .toc-nav {
+      background: var(--surface-container-low);
+      border-bottom: var(--hairline);
+      padding: var(--space-sm) var(--space-lg);
+    }
+    .toc-list {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      list-style: none;
+      padding: 0;
+    }
+    .toc-link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-md);
+      border-radius: var(--rounded);
+      border: var(--hairline);
+      background: var(--surface-container);
+      color: var(--on-surface);
+      text-decoration: none;
+      font-size: var(--label-size);
+      font-weight: 600;
+      transition: background-color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out);
+    }
+    .toc-link:hover {
+      background: var(--surface-container-high);
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+    .toc-num {
+      font-family: var(--font-mono);
+      color: var(--tertiary);
+      font-size: var(--label-size);
+    }
+
+    /* Section Header */
+    .section-block {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-lg);
+      padding-top: var(--space-md);
+    }
+    .section-head {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+      border-right: 3px solid var(--primary);
+      padding-right: var(--space-md);
+    }
+    .section-head.orange-rule {
+      border-right-color: var(--tertiary);
+    }
+    .section-deck {
+      font-size: var(--label-size);
+      font-weight: 600;
+      color: var(--tertiary);
+    }
+    .section-title {
+      font-size: var(--headline-size);
+      font-weight: 700;
+      line-height: 1.25;
+    }
+    .section-intro {
+      font-size: var(--body-size);
+      color: var(--on-surface-variant);
+      max-width: 70ch;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-xs);
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--rounded);
+      border: var(--hairline-strong);
+      background: var(--surface-container-high);
+      color: var(--on-surface);
+      font-size: var(--label-size);
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out), box-shadow var(--dur-micro) var(--ease-out), transform var(--dur-micro) var(--ease-out);
+    }
+    .btn:hover:not(:disabled) {
+      background: var(--primary-container);
+      color: var(--primary);
+      box-shadow: 0 0 0 1px var(--primary);
+    }
+    .btn:active:not(:disabled) {
+      transform: translateY(1px);
+    }
+    .btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+    .btn-primary:hover:not(:disabled) {
+      background: var(--on-primary-container);
+      color: var(--on-primary);
+      box-shadow: var(--shadow-glow-cyan);
+    }
+    .btn-orange {
+      background: var(--orange-tint);
+      color: var(--tertiary);
+      border-color: var(--orange-border);
+    }
+    .btn-orange:hover:not(:disabled) {
+      background: var(--tertiary);
+      color: var(--on-tertiary);
+      box-shadow: var(--shadow-glow-orange);
+    }
+    .btn.is-active {
+      background: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+
+    /* Section 1: Anatomy Explorer */
+    .anatomy-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+      gap: var(--space-lg);
+      align-items: stretch;
+    }
+    .anatomy-canvas-panel {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+    .anatomy-well {
+      position: relative;
+      min-height: 390px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: var(--space-sm);
+    }
+    .anatomy-svg {
+      width: 100%;
+      height: 100%;
+      max-height: 410px;
+      display: block;
+    }
+    .angle-controls {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: end;
+      justify-content: space-between;
+      gap: var(--space-md);
+      background: var(--surface-container-low);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+    }
+    .angle-slider-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+      flex: 1 1 220px;
+    }
+    .control-label {
+      font-size: var(--label-size);
+      font-weight: 600;
+      color: var(--on-surface);
+      display: flex;
+      justify-content: space-between;
+      gap: var(--space-sm);
+    }
+    .control-label span.readout {
+      color: var(--primary);
+      font-family: var(--font-mono);
+    }
+    input[type="range"] {
+      width: 100%;
+      min-height: 36px;
+      accent-color: var(--primary);
+      cursor: pointer;
+    }
+    .angle-presets {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs);
+    }
+    .angle-presets .btn {
+      padding: var(--space-xs) var(--space-sm);
+    }
+
+    .anatomy-info-panel {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: var(--space-md);
+    }
+    .anatomy-pills {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-sm);
+    }
+    .anatomy-pill {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-xs);
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--rounded);
+      border: var(--hairline);
+      background: var(--surface-container-low);
+      color: var(--on-surface-variant);
+      font-size: var(--label-size);
+      font-weight: 600;
+      cursor: pointer;
+      text-align: right;
+      transition: background-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out), box-shadow var(--dur-short) var(--ease-out);
+    }
+    .anatomy-pill:hover {
+      background: var(--surface-container-high);
+      color: var(--on-surface);
+    }
+    .anatomy-pill.is-active {
+      background: var(--cyan-tint);
+      color: var(--primary);
+      box-shadow: 0 0 0 1px var(--primary);
+    }
+    .anatomy-pill-idx {
+      font-family: var(--font-mono);
+      font-size: var(--label-size);
+      color: var(--tertiary);
+    }
+
+    .anatomy-detail-box {
+      background: var(--surface-container-low);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      padding: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+      flex: 1;
+    }
+    .anatomy-detail-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--rounded);
+      font-size: var(--label-size);
+      font-weight: 600;
+    }
+    .badge-cyan {
+      background: var(--cyan-tint);
+      color: var(--primary);
+      border: 1px solid var(--cyan-border);
+    }
+    .badge-orange {
+      background: var(--orange-tint);
+      color: var(--tertiary);
+      border: 1px solid var(--orange-border);
+    }
+    .badge-green {
+      background: var(--positive-tint);
+      color: var(--positive);
+      border: 1px solid var(--positive-border);
+    }
+    .badge-red {
+      background: var(--error-tint);
+      color: var(--error);
+      border: 1px solid var(--error-border);
+    }
+    .anatomy-detail-title {
+      font-size: var(--subhead-size);
+      font-weight: 700;
+      color: var(--on-surface);
+    }
+    .anatomy-detail-desc {
+      font-size: var(--body-size);
+      color: var(--on-surface-variant);
+      line-height: 1.75;
+    }
+    .anatomy-nav-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      padding-top: var(--space-sm);
+      border-top: var(--hairline);
+    }
+
+    /* SVG Hotspot interactivity */
+    .svg-hotspot {
+      cursor: pointer;
+      transition: opacity var(--dur-short) var(--ease-out), transform var(--dur-short) var(--ease-out);
+    }
+    .svg-hotspot:focus-visible {
+      outline: none;
+    }
+    .hotspot-ring {
+      fill: var(--background);
+      stroke: var(--primary);
+      stroke-width: 2;
+      transition: fill var(--dur-short) var(--ease-out), stroke var(--dur-short) var(--ease-out);
+    }
+    .svg-hotspot.is-active .hotspot-ring {
+      fill: var(--tertiary);
+      stroke: var(--on-surface);
+    }
+    .hotspot-text {
+      fill: var(--primary);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 600;
+      text-anchor: middle;
+      dominant-baseline: central;
+      pointer-events: none;
+    }
+    .svg-hotspot.is-active .hotspot-text {
+      fill: var(--on-tertiary);
+    }
+
+    /* Section 2: Types & Mass Scale */
+    .types-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+      gap: var(--space-md);
+    }
+    .type-card {
+      background: var(--surface-container);
+      border: var(--hairline);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      box-shadow: var(--panel-highlight);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+      cursor: pointer;
+      text-align: right;
+      transition: background-color var(--dur-short) var(--ease-out), box-shadow var(--dur-short) var(--ease-out);
+    }
+    .type-card:hover {
+      background: var(--surface-container-high);
+    }
+    .type-card.is-active {
+      background: var(--surface-container-high);
+      box-shadow: 0 0 0 1px var(--primary), var(--panel-highlight);
+    }
+    .type-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-xs);
+    }
+    .type-mass-figure {
+      font-family: var(--font-headline);
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+    .type-detail-banner {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+      gap: var(--space-lg);
+      align-items: center;
+    }
+    .mass-chart-well {
+      min-height: 220px;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    /* Section 3: Interactive Timeline */
+    .timeline-shell {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-lg);
+    }
+    .timeline-track {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: var(--space-sm);
+      position: relative;
+    }
+    .timeline-node {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-xs);
+      min-height: 44px;
+      padding: var(--space-md);
+      border-radius: var(--rounded);
+      border: var(--hairline);
+      background: var(--surface-container-low);
+      color: var(--on-surface-variant);
+      cursor: pointer;
+      text-align: right;
+      transition: background-color var(--dur-short) var(--ease-out), box-shadow var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out);
+    }
+    .timeline-node:hover {
+      background: var(--surface-container-high);
+      color: var(--on-surface);
+    }
+    .timeline-node.is-active {
+      background: var(--primary-container);
+      color: var(--on-surface);
+      box-shadow: 0 0 0 1px var(--primary);
+    }
+    .timeline-epoch {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      color: var(--tertiary);
+    }
+    .timeline-node-title {
+      font-family: var(--font-headline);
+      font-size: 1rem;
+      font-weight: 700;
+      color: inherit;
+    }
+    .timeline-stage {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.9fr);
+      gap: var(--space-lg);
+      align-items: center;
+    }
+    .timeline-visual {
+      min-height: 240px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Section 4: Detection & Facts */
+    .methods-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+      gap: var(--space-md);
+    }
+    .method-card {
+      background: var(--surface-container);
+      border: var(--hairline);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      box-shadow: var(--panel-highlight);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+    .method-icon-box {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--rounded);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--cyan-tint);
+      color: var(--primary);
+      border: 1px solid var(--cyan-border);
+    }
+    .method-icon-box.orange {
+      background: var(--orange-tint);
+      color: var(--tertiary);
+      border-color: var(--orange-border);
+    }
+
+    .facts-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+    }
+    .filter-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+    }
+    .facts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+      gap: var(--space-md);
+    }
+    .fact-card {
+      background: var(--surface-container);
+      border: var(--hairline);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      box-shadow: var(--panel-highlight);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .fact-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+    }
+    .fact-num {
+      font-family: var(--font-mono);
+      font-size: var(--label-size);
+      font-weight: 600;
+      color: var(--tertiary);
+    }
+    .fact-metric {
+      font-family: var(--font-headline);
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin: var(--space-xs) 0;
+    }
+
+    /* Section 5: Myth vs. Fact */
+    .myth-header-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      background: var(--surface-container-low);
+      border: var(--hairline);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md) var(--space-lg);
+    }
+    .myth-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+      gap: var(--space-md);
+    }
+    .myth-card {
+      background: var(--surface-container);
+      border: var(--hairline);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      box-shadow: var(--panel-highlight);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: var(--space-md);
+    }
+    .myth-statement {
+      font-family: var(--font-headline);
+      font-size: 1.12rem;
+      font-weight: 700;
+      color: var(--on-surface);
+      line-height: 1.45;
+    }
+    .myth-actions {
+      display: flex;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+    }
+    .myth-actions .btn {
+      flex: 1 1 130px;
+    }
+    .myth-feedback {
+      background: var(--background);
+      border: var(--hairline);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      display: none;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .myth-feedback.is-visible {
+      display: flex;
+    }
+
+    /* Footer */
+    .site-footer {
+      border-top: var(--hairline);
+      background: var(--surface-container-low);
+      padding: var(--space-xl) var(--space-lg);
+      margin-top: var(--space-2xl);
+    }
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: var(--space-md);
+      font-size: var(--label-size);
+      color: var(--on-surface-variant);
+    }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity var(--dur-long) var(--ease-out), transform var(--dur-long) var(--ease-out);
+    }
+    .reveal.is-in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Container queries */
+    .card-wrapper { container-type: inline-size; }
+    @container (max-width: 440px) {
+      .anatomy-pills { grid-template-columns: 1fr; }
+    }
+
+    /* Responsive breakpoints */
+    @media (max-width: 900px) {
+      .hero-inner,
+      .anatomy-layout,
+      .type-detail-banner,
+      .timeline-stage {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .timeline-track {
+        grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      }
+    }
+    @media (max-width: 640px) {
+      .page-grid {
+        grid-template-columns: 1fr;
+        padding: var(--space-md);
+        gap: var(--space-xl);
+      }
+      .hero-header {
+        padding: var(--space-xl) var(--space-md);
+      }
+      .hero-metrics {
+        grid-template-columns: 1fr;
+      }
+      .toc-nav {
+        padding: var(--space-sm) var(--space-md);
+      }
+      .anatomy-well {
+        min-height: 310px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO HEADER -->
+  <a href="../#videos" style="display:block;width:fit-content;margin:12px max(16px,calc((100% - 1280px) / 2));padding:5px 12px;color:var(--primary);font-weight:700;text-underline-offset:4px;">الرجوع إلى البورتفوليو</a>
+  <header class="hero-header">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-kicker">
+          <i data-lucide="orbit" aria-hidden="true"></i>
+          <span>مرصد الفيزياء الفلكية — دليل معرفي تفاعلي</span>
+        </div>
+        <h1 class="hero-title">
+          تشريح <span class="accent-cyan">الثقوب السوداء</span>:
+          من <span class="accent-orange">أفق الحدث</span> إلى أعماق الكون
+        </h1>
+        <p class="hero-lede">
+          ليست الثقوب السوداء «ثقوباً» فارغة ولا «مكانس كونية» تبتلع الفضاء، بل هي تراكيز هائلة من المادة مضغوطة في مساحات بالغة الصغر، تبلغ الجاذبية تحت حدودها قوةً تمنع حتى الضوء من الإفلات.
+        </p>
+      </div>
+
+      <div class="hero-metrics" aria-label="أرقام مرجعية رئيسية">
+        <div class="hero-stat">
+          <div class="hero-stat-label">أقرب ثقب أسود معروف</div>
+          <div class="hero-stat-val cyan"><bdi dir="ltr">1,500</bdi></div>
+          <div class="hero-stat-sub">سنة ضوئية (<bdi dir="ltr">Gaia BH1</bdi>)</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-label">أضخم كتلة مرصودة</div>
+          <div class="hero-stat-val orange"><bdi dir="ltr">66</bdi> مليار</div>
+          <div class="hero-stat-sub">ضعف كتلة الشمس (<bdi dir="ltr">TON 618</bdi>)</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-label">تقدير مجرة درب التبانة</div>
+          <div class="hero-stat-val cyan"><bdi dir="ltr">100</bdi> مليون</div>
+          <div class="hero-stat-sub">ثقب أسود ذو كتلة نجمية</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- IN-PAGE NAVIGATION -->
+  <nav class="toc-nav" aria-label="أقسام الدليل التفاعلي">
+    <ul class="toc-list">
+      <li><a class="toc-link" href="#anatomy"><span class="toc-num">01</span> شارح التشريح التفاعلي</a></li>
+      <li><a class="toc-link" href="#types"><span class="toc-num">02</span> الأنواع الأربعة ومقياس الكتلة</a></li>
+      <li><a class="toc-link" href="#timeline"><span class="toc-num">03</span> الخط الزمني الكوني</a></li>
+      <li><a class="toc-link" href="#facts"><span class="toc-num">04</span> طرق الرصد والحقائق العشر</a></li>
+      <li><a class="toc-link" href="#myths"><span class="toc-num">05</span> تصحيح المفاهيم الخاطئة</a></li>
+    </ul>
+  </nav>
+
+  <main class="page-grid">
+
+    <!-- SECTION 1: INTERACTIVE ANATOMY EXPLAINER -->
+    <section id="anatomy" class="section-block reveal">
+      <div class="section-head">
+        <span class="section-deck">القسم الأول — البنية الفيزيائية للثقب الأسود</span>
+        <h2 class="section-title">شارح التشريح التفاعلي: كيف نرى ما لا يُصدر ضوءاً؟</h2>
+        <p class="section-intro">
+          لا يُصدر الثقب الأسود نفسه ضوءاً ولا يعكسه، غير أن المادة المندفعة نحوه قبل عبور «أفق الحدث» تخلق بنيةً فيزيائية متطرفة ومضيئة. اضغط على الأجزاء الثمانية في الرسم أو القائمة، وجرّب تغيير زاوية الرؤية لملاحظة تشوّه الفضاء وتأثير دوبلر النسبي.
+        </p>
+      </div>
+
+      <div class="anatomy-layout">
+        <!-- Left/Start Column: Interactive SVG Schematic + Angle Control -->
+        <div class="panel anatomy-canvas-panel">
+          <div class="observation-well anatomy-well">
+            <svg id="bh-svg" class="anatomy-svg" viewBox="0 0 640 420" role="img" aria-label="رسم تفاعلي لبنية الثقب الأسود">
+              <defs>
+                <radialGradient id="grad-shadow" cx="50%" cy="50%" r="50%">
+                  <stop offset="62%" stop-color="var(--background)" stop-opacity="1" />
+                  <stop offset="86%" stop-color="var(--background)" stop-opacity="0.96" />
+                  <stop offset="100%" stop-color="var(--primary)" stop-opacity="0" />
+                </radialGradient>
+                <linearGradient id="grad-disk-approaching" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="var(--primary)" stop-opacity="0.95" />
+                  <stop offset="50%" stop-color="var(--on-surface)" stop-opacity="0.7" />
+                  <stop offset="100%" stop-color="var(--tertiary)" stop-opacity="0.35" />
+                </linearGradient>
+                <linearGradient id="grad-jet-top" x1="0%" y1="100%" x2="0%" y2="0%">
+                  <stop offset="0%" stop-color="var(--primary)" stop-opacity="0.95" />
+                  <stop offset="60%" stop-color="var(--primary)" stop-opacity="0.45" />
+                  <stop offset="100%" stop-color="var(--primary)" stop-opacity="0" />
+                </linearGradient>
+                <linearGradient id="grad-jet-bottom" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="var(--tertiary)" stop-opacity="0.65" />
+                  <stop offset="60%" stop-color="var(--tertiary)" stop-opacity="0.22" />
+                  <stop offset="100%" stop-color="var(--tertiary)" stop-opacity="0" />
+                </linearGradient>
+                <radialGradient id="grad-corona" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="var(--primary)" stop-opacity="0.32" />
+                  <stop offset="70%" stop-color="var(--primary)" stop-opacity="0.08" />
+                  <stop offset="100%" stop-color="var(--primary)" stop-opacity="0" />
+                </radialGradient>
+              </defs>
+
+              <!-- Faint Observatory Coordinate Grid -->
+              <g opacity="0.25" aria-hidden="true">
+                <line x1="320" y1="12" x2="320" y2="408" stroke="var(--outline)" stroke-dasharray="3 5" stroke-width="1" />
+                <line x1="20" y1="210" x2="620" y2="210" stroke="var(--outline)" stroke-dasharray="3 5" stroke-width="1" />
+                <circle cx="320" cy="210" r="145" fill="none" stroke="var(--outline-variant)" stroke-dasharray="2 6" stroke-width="1" />
+                <circle cx="320" cy="210" r="195" fill="none" stroke="var(--outline-variant)" stroke-dasharray="2 6" stroke-width="1" />
+              </g>
+
+              <!-- 6. Corona (billion-degree turbulent cloud) -->
+              <g id="layer-corona" opacity="0.75">
+                <ellipse cx="320" cy="145" rx="95" ry="44" fill="url(#grad-corona)" />
+                <ellipse cx="320" cy="275" rx="95" ry="44" fill="url(#grad-corona)" />
+                <path d="M 270 185 Q 245 140 285 110 M 370 185 Q 395 140 355 110" fill="none" stroke="var(--primary)" stroke-width="1.2" stroke-dasharray="4 4" opacity="0.65" />
+              </g>
+
+              <!-- 7. Particle Jets (Twin opposing beams) -->
+              <g id="layer-jets">
+                <polygon id="jet-near" points="315,165 325,165 338,16 302,16" fill="url(#grad-jet-top)" />
+                <polygon id="jet-far" points="316,255 324,255 334,404 306,404" fill="url(#grad-jet-bottom)" />
+                <line x1="320" y1="165" x2="320" y2="20" stroke="var(--on-primary-container)" stroke-width="1.5" opacity="0.75" />
+                <line x1="320" y1="255" x2="320" y2="400" stroke="var(--tertiary)" stroke-width="1" opacity="0.45" />
+              </g>
+
+              <!-- 2. Gravitational Lensing Humps (from far side of Accretion Disk) -->
+              <g id="layer-lensing-humps">
+                <path id="hump-top" d="M 238 205 C 238 118, 402 118, 402 205" fill="none" stroke="var(--tertiary)" stroke-width="10" stroke-linecap="round" opacity="0.7" />
+                <path id="hump-top-inner" d="M 248 206 C 248 134, 392 134, 392 206" fill="none" stroke="var(--primary)" stroke-width="5" stroke-linecap="round" opacity="0.75" />
+                <path id="hump-bottom" d="M 246 215 C 246 292, 394 292, 394 215" fill="none" stroke="var(--tertiary)" stroke-width="8" stroke-linecap="round" opacity="0.55" />
+              </g>
+
+              <!-- 3. Event Horizon Shadow (roughly 2x event horizon size) -->
+              <circle id="layer-shadow" cx="320" cy="210" r="68" fill="url(#grad-shadow)" stroke="var(--outline)" stroke-width="1" stroke-dasharray="4 3" />
+
+              <!-- 4. Photon Sphere (thin rings at edge of shadow) -->
+              <g id="layer-photon-sphere">
+                <circle cx="320" cy="210" r="69" fill="none" stroke="var(--on-surface)" stroke-width="2" opacity="0.88" />
+                <circle cx="320" cy="210" r="73" fill="none" stroke="var(--primary)" stroke-width="1.2" opacity="0.55" />
+              </g>
+
+              <!-- 1. Event Horizon (actual surface boundary ~half the shadow radius) -->
+              <circle id="layer-event-horizon" cx="320" cy="210" r="38" fill="var(--background)" stroke="var(--primary)" stroke-width="1.8" stroke-opacity="0.85" />
+
+              <!-- 8. Singularity (central predicted point of infinite density) -->
+              <g id="layer-singularity">
+                <circle cx="320" cy="210" r="4" fill="var(--on-surface)" />
+                <circle cx="320" cy="210" r="10" fill="none" stroke="var(--tertiary)" stroke-width="1.4" stroke-dasharray="2 2" />
+              </g>
+
+              <!-- 2 & 5. Main Accretion Disk + Doppler Beaming (Front & Side bands) -->
+              <g id="layer-accretion-disk">
+                <ellipse id="disk-outer" cx="320" cy="210" rx="215" ry="52" fill="none" stroke="var(--tertiary)" stroke-width="14" opacity="0.55" />
+                <ellipse id="disk-mid" cx="320" cy="210" rx="178" ry="42" fill="none" stroke="var(--primary)" stroke-width="10" opacity="0.65" />
+                <ellipse id="disk-inner" cx="320" cy="210" rx="135" ry="31" fill="none" stroke="var(--on-surface)" stroke-width="4" opacity="0.7" />
+                <!-- Doppler Beaming Overlay: Left/Approaching Bright Cyan vs Right/Receding Dim Orange -->
+                <path id="doppler-approaching" d="M 105 210 A 215 52 0 0 0 320 262" fill="none" stroke="var(--primary)" stroke-width="16" stroke-linecap="round" opacity="0.9" />
+                <path id="doppler-receding" d="M 320 262 A 215 52 0 0 0 535 210" fill="none" stroke="var(--tertiary)" stroke-width="12" stroke-linecap="round" opacity="0.4" />
+              </g>
+
+              <!-- Interactive Hotspot Markers (1 to 8) -->
+              <g class="svg-hotspot is-active" data-part="0" tabindex="0" role="button" aria-label="أفق الحدث" onclick="selectAnatomy(0)">
+                <line x1="358" y1="210" x2="390" y2="210" stroke="var(--primary)" stroke-width="1" stroke-dasharray="2 2" />
+                <circle class="hotspot-ring" cx="395" cy="210" r="13" />
+                <text class="hotspot-text" x="395" y="210">1</text>
+              </g>
+              <g class="svg-hotspot" data-part="1" tabindex="0" role="button" aria-label="قرص التراكم" onclick="selectAnatomy(1)">
+                <circle class="hotspot-ring" cx="498" cy="222" r="13" />
+                <text class="hotspot-text" x="498" y="222">2</text>
+              </g>
+              <g class="svg-hotspot" data-part="2" tabindex="0" role="button" aria-label="ظل أفق الحدث" onclick="selectAnatomy(2)">
+                <circle class="hotspot-ring" cx="268" cy="182" r="13" />
+                <text class="hotspot-text" x="268" y="182">3</text>
+              </g>
+              <g class="svg-hotspot" data-part="3" tabindex="0" role="button" aria-label="كرة الفوتونات" onclick="selectAnatomy(3)">
+                <circle class="hotspot-ring" cx="378" cy="166" r="13" />
+                <text class="hotspot-text" x="378" y="166">4</text>
+              </g>
+              <g class="svg-hotspot" data-part="4" tabindex="0" role="button" aria-label="تأثير دوبلر النسبي" onclick="selectAnatomy(4)">
+                <circle class="hotspot-ring" cx="145" cy="224" r="13" />
+                <text class="hotspot-text" x="145" y="224">5</text>
+              </g>
+              <g class="svg-hotspot" data-part="5" tabindex="0" role="button" aria-label="الإكليل أو الهالة" onclick="selectAnatomy(5)">
+                <circle class="hotspot-ring" cx="242" cy="126" r="13" />
+                <text class="hotspot-text" x="242" y="126">6</text>
+              </g>
+              <g class="svg-hotspot" data-part="6" tabindex="0" role="button" aria-label="نفاثات الجسيمات" onclick="selectAnatomy(6)">
+                <circle class="hotspot-ring" cx="320" cy="48" r="13" />
+                <text class="hotspot-text" x="320" y="48">7</text>
+              </g>
+              <g class="svg-hotspot" data-part="7" tabindex="0" role="button" aria-label="التفرد" onclick="selectAnatomy(7)">
+                <circle class="hotspot-ring" cx="320" cy="210" r="13" />
+                <text class="hotspot-text" x="320" y="210">8</text>
+              </g>
+            </svg>
+          </div>
+
+          <!-- Viewing Angle Simulation Control -->
+          <div class="angle-controls">
+            <div class="angle-slider-group">
+              <label class="control-label" for="angle-slider">
+                <span>زاوية الرؤية النسبية للقرص</span>
+                <span class="readout" id="angle-readout">75° (مائلة)</span>
+              </label>
+              <input type="range" id="angle-slider" min="0" max="85" value="75" oninput="updateViewingAngle(this.value)">
+            </div>
+            <div class="angle-presets" role="group" aria-label="زوايا رؤية سريعة">
+              <button type="button" class="btn" onclick="setAnglePreset(0)">أمامية (0°)</button>
+              <button type="button" class="btn is-active" id="preset-75" onclick="setAnglePreset(75)">مائلة (75°)</button>
+              <button type="button" class="btn" onclick="setAnglePreset(84)">شبه حافّية (84°)</button>
+            </div>
+          </div>
+          <p id="angle-note" style="font-size: var(--label-size); color: var(--on-surface-variant);">
+            عند النظر بزاوية مائلة تظهر «حدبات» التعديس الثقالي أعلى الظل وأسفله، ويبدو الجانب المقترب نحونا أكثر سطوعاً وزرقة بفعل تأثير دوبلر النسبي.
+          </p>
+        </div>
+
+        <!-- Right/End Column: 8 Selector Pills + Dynamic Explanation Panel -->
+        <div class="panel anatomy-info-panel card-wrapper">
+          <div class="anatomy-pills" role="tablist" aria-label="مكونات الثقب الأسود">
+            <button type="button" class="anatomy-pill is-active" data-idx="0" onclick="selectAnatomy(0)">
+              <span>أفق الحدث</span>
+              <span class="anatomy-pill-idx">01</span>
+            </button>
+            <button type="button" class="anatomy-pill" data-idx="1" onclick="selectAnatomy(1)">
+              <span>قرص التراكم</span>
+              <span class="anatomy-pill-idx">02</span>
+            </button>
+            <button type="button" class="anatomy-pill" data-idx="2" onclick="selectAnatomy(2)">
+              <span>ظل أفق الحدث</span>
+              <span class="anatomy-pill-idx">03</span>
+            </button>
+            <button type="button" class="anatomy-pill" data-idx="3" onclick="selectAnatomy(3)">
+              <span>كرة الفوتونات</span>
+              <span class="anatomy-pill-idx">04</span>
+            </button>
+            <button type="button" class="anatomy-pill" data-idx="4" onclick="selectAnatomy(4)">
+              <span>تأثير دوبلر النسبي</span>
+              <span class="anatomy-pill-idx">05</span>
+            </button>
+            <button type="button" class="anatomy-pill" data-idx="5" onclick="selectAnatomy(5)">
+              <span>الإكليل (الهالة)</span>
+              <span class="anatomy-pill-idx">06</span>
+            </button>
+            <button type="button" class="anatomy-pill" data-idx="6" onclick="selectAnatomy(6)">
+              <span>نفاثات الجسيمات</span>
+              <span class="anatomy-pill-idx">07</span>
+            </button>
+            <button type="button" class="anatomy-pill" data-idx="7" onclick="selectAnatomy(7)">
+              <span>التفرد (المتفرد)</span>
+              <span class="anatomy-pill-idx">08</span>
+            </button>
+          </div>
+
+          <div class="anatomy-detail-box" aria-live="polite">
+            <div class="anatomy-detail-header">
+              <span class="badge badge-cyan" id="anatomy-badge">المكون 1 من 8</span>
+              <span class="badge badge-orange" id="anatomy-tag">حد اللاعودة</span>
+            </div>
+            <h3 class="anatomy-detail-title" id="anatomy-title">أفق الحدث</h3>
+            <p class="anatomy-detail-desc" id="anatomy-desc">
+              هو ما يجعل الثقب الأسود «أسودَ»؛ ويمكن تصور أفق الحدث بوصفه سطح الثقب الأسود، إلا أنه ليس سطحاً صلباً كالأرض أو الشمس بل حدّ يحيط بالمادة. داخل هذا الحد تفوق سرعة الإفلات سرعة الضوء، ولأن الضوء لا يستطيع الهرب، لا تُصدر الثقوب السوداء ضوءاً ولا تعكسه ولا يصل أي خبر مما بداخلها إلى مراقب خارجي.
+            </p>
+            <div class="anatomy-nav-row">
+              <button type="button" class="btn" id="anatomy-prev" onclick="stepAnatomy(-1)">
+                <i data-lucide="arrow-right" aria-hidden="true"></i>
+                <span>السابق</span>
+              </button>
+              <span class="mono-num" id="anatomy-counter" style="font-size: var(--label-size); color: var(--on-surface-variant);">1 / 8</span>
+              <button type="button" class="btn btn-primary" id="anatomy-next" onclick="stepAnatomy(1)">
+                <span>التالي</span>
+                <i data-lucide="arrow-left" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: FOUR TYPES OF BLACK HOLES -->
+    <section id="types" class="section-block reveal">
+      <div class="section-head orange-rule">
+        <span class="section-deck">القسم الثاني — التصنيف حسب الكتلة والنشأة</span>
+        <h2 class="section-title">الأنواع الأربعة للثقوب السوداء: من ذرات البدايات إلى وحوش المجرات</h2>
+        <p class="section-intro">
+          يصنف علماء الفلك الثقوب السوداء غالباً إلى ثلاث فئات رئيسية وفق كتلتها: نجمية، ومتوسطة، وفائقة الكتلة، مع وجود فئة رابعة نظرية يُرجّح تشكلها في اللحظات الأولى لنشأة الكون. اختر أي فئة لاستعراض تفاصيلها ومقارنتها على مقياس الكتلة اللوغاريتمي.
+        </p>
+      </div>
+
+      <div class="types-grid" role="tablist" aria-label="أنواع الثقوب السوداء">
+        <button type="button" class="type-card is-active" data-type="0" onclick="selectType(0)">
+          <div class="type-card-top">
+            <span class="badge badge-cyan">الأكثر شيوعاً في المجرات</span>
+            <span class="mono-num" style="color: var(--tertiary); font-size: var(--label-size);">01</span>
+          </div>
+          <h3>الكتلة النجمية</h3>
+          <div class="type-mass-figure">بضع كتل إلى مئات</div>
+          <p style="font-size: var(--label-size);">تتولد من انهيار نجوم تفوق كتلتها نحو <bdi dir="ltr">20</bdi> ضعف كتلة الشمس في انفجارات المستعرات العظمى.</p>
+        </button>
+
+        <button type="button" class="type-card" data-type="1" onclick="selectType(1)">
+          <div class="type-card-top">
+            <span class="badge badge-orange">الحلقة المفقودة</span>
+            <span class="mono-num" style="color: var(--tertiary); font-size: var(--label-size);">02</span>
+          </div>
+          <h3>متوسطة الكتلة</h3>
+          <div class="type-mass-figure">مئات إلى مئات الآلاف</div>
+          <p style="font-size: var(--label-size);">تسد الفجوة المحيّرة بين الثقوب النجمية والفائقة، وقد تنشأ عن تصادمات ثقوب نجمية.</p>
+        </button>
+
+        <button type="button" class="type-card" data-type="2" onclick="selectType(2)">
+          <div class="type-card-top">
+            <span class="badge badge-cyan">مراكز المجرات الكبرى</span>
+            <span class="mono-num" style="color: var(--tertiary); font-size: var(--label-size);">03</span>
+          </div>
+          <h3>فائقة الكتلة</h3>
+          <div class="type-mass-figure">مئات الآلاف إلى مليارات</div>
+          <p style="font-size: var(--label-size);">تسكن مراكز معظم المجرات الكبيرة مثل «الرامي A*» في مجرتنا بكتلة <bdi dir="ltr">4</bdi> ملايين شمس.</p>
+        </button>
+
+        <button type="button" class="type-card" data-type="3" onclick="selectType(3)">
+          <div class="type-card-top">
+            <span class="badge badge-orange">فئة نظرية</span>
+            <span class="mono-num" style="color: var(--tertiary); font-size: var(--label-size);">04</span>
+          </div>
+          <h3>البدائية</h3>
+          <div class="type-mass-figure">من دون مشبك ورق إلى 100 ألف</div>
+          <p style="font-size: var(--label-size);">يُفترض تشكلها في الثانية الأولى بعد نشأة الكون، ولم يُرصد دليل قاطع عليها حتى الآن.</p>
+        </button>
+      </div>
+
+      <div class="panel type-detail-banner" aria-live="polite">
+        <div style="display: flex; flex-direction: column; gap: var(--space-sm);">
+          <div style="display: flex; align-items: center; gap: var(--space-sm); flex-wrap: wrap;">
+            <span class="badge badge-cyan" id="type-status-badge">مؤكدة الرصد</span>
+            <span class="badge badge-orange" id="type-range-badge">النطاق: بضع كتل – مئات الكتل الشمسية</span>
+          </div>
+          <h3 id="type-title" style="font-size: var(--subhead-size);">الثقوب السوداء ذات الكتلة النجمية</h3>
+          <p id="type-desc">
+            عندما ينفد وقود نجم تزيد كتلته على 8 أضعاف كتلة الشمس، ينهار قلبه ويرتد وينفجر كمستعر أعظم. إذا كانت كتلته قريبة من هذا الحدّ خلّف نجماً نيوترونياً بحجم مدينة، أما إذا بلغت نحو 20 ضعف كتلة الشمس أو أكثر فينهار القلب إلى ثقب أسود نجمي. رُصد نحو 50 ثقباً مشتبهاً أو مؤكداً في مجرة درب التبانة عبر أنظمة نجمية ثنائية، لكن العلماء يقدّرون وجود ما يصل إلى 100 مليون ثقب منها في مجرتنا وحدها.
+          </p>
+        </div>
+
+        <!-- Logarithmic Mass Scale SVG -->
+        <div class="observation-well mass-chart-well">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-size: var(--label-size); font-weight: 600; color: var(--on-surface);">مقارنة الكتل المرصودة (مضاعفات كتلة الشمس)</span>
+            <span class="mono-num" style="font-size: var(--label-size); color: var(--primary);">مقياس لوغاريتمي</span>
+          </div>
+          <svg viewBox="0 0 440 165" style="width: 100%; height: auto; display: block;" role="img" aria-label="رسم بياني لوغاريتمي يقارن كتل الثقوب السوداء المرصودة">
+            <!-- Bars -->
+            <g font-family="IBM Plex Sans Arabic, sans-serif" font-size="11">
+              <!-- Lightest known: 3.8 -->
+              <text x="432" y="22" fill="var(--on-surface-variant)" text-anchor="end">الأصغر معروفاً (نجمي)</text>
+              <rect x="275" y="11" width="18" height="14" rx="2" fill="var(--primary)" />
+              <text x="268" y="22" fill="var(--primary)" text-anchor="end" font-family="IBM Plex Mono, monospace">3.8 M☉</text>
+
+              <!-- 3XMM J215022.4−055108: 50,000 -->
+              <text x="432" y="54" fill="var(--on-surface-variant)" text-anchor="end">مرشح متوسط (هابل)</text>
+              <rect x="200" y="43" width="93" height="14" rx="2" fill="var(--tertiary)" />
+              <text x="193" y="54" fill="var(--tertiary)" text-anchor="end" font-family="IBM Plex Mono, monospace">50,000 M☉</text>
+
+              <!-- Sgr A*: 4,000,000 -->
+              <text x="432" y="86" fill="var(--on-surface-variant)" text-anchor="end">الرامي A* (درب التبانة)</text>
+              <rect x="152" y="75" width="141" height="14" rx="2" fill="var(--primary)" />
+              <text x="145" y="86" fill="var(--primary)" text-anchor="end" font-family="IBM Plex Mono, monospace">4M M☉</text>
+
+              <!-- Holmberg 15A: 40B -->
+              <text x="432" y="118" fill="var(--on-surface-variant)" text-anchor="end">مركز Holmberg 15A</text>
+              <rect x="75" y="107" width="218" height="14" rx="2" fill="var(--tertiary)" opacity="0.85" />
+              <text x="68" y="118" fill="var(--tertiary)" text-anchor="end" font-family="IBM Plex Mono, monospace">40B M☉</text>
+
+              <!-- TON 618: 66B -->
+              <text x="432" y="150" fill="var(--on-surface)" font-weight="600" text-anchor="end">الأضخم TON 618</text>
+              <rect x="65" y="139" width="228" height="14" rx="2" fill="var(--tertiary)" />
+              <text x="58" y="150" fill="var(--tertiary)" font-weight="600" text-anchor="end" font-family="IBM Plex Mono, monospace">66B M☉</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: INTERACTIVE COSMIC & OBSERVATIONAL TIMELINE -->
+    <section id="timeline" class="section-block reveal">
+      <div class="section-head">
+        <span class="section-deck">القسم الثالث — من اللحظة الأولى إلى عصر الرصد</span>
+        <h2 class="section-title">الخط الزمني التفاعلي: نشأة الثقوب السوداء وتطورها عبر <bdi dir="ltr">13.8</bdi> مليار سنة</h2>
+        <p class="section-intro">
+          تتبع الرحلة الكونية للثقوب السوداء استناداً إلى الرصد والنماذج الفيزيائية: منذ الثانية الأولى بعد نشأة الكون، مروراً بولادة الوحوش المبكرة وانهيار النجوم الضخمة، وصولاً إلى اكتشافات التلسكوبات الحديثة اليوم.
+        </p>
+      </div>
+
+      <div class="panel timeline-shell">
+        <div class="timeline-track" role="tablist" aria-label="محطات الخط الزمني">
+          <button type="button" class="timeline-node is-active" data-step="0" onclick="selectTimeline(0)">
+            <span class="timeline-epoch">الثانية الأولى (0–1 ثانية)</span>
+            <span class="timeline-node-title">حقبة الثقوب البدائية</span>
+          </button>
+          <button type="button" class="timeline-node" data-step="1" onclick="selectTimeline(1)">
+            <span class="timeline-epoch">أول مليار سنة</span>
+            <span class="timeline-node-title">بزوغ العمالقة المبكرة</span>
+          </button>
+          <button type="button" class="timeline-node" data-step="2" onclick="selectTimeline(2)">
+            <span class="timeline-epoch">نهاية النجم العملاق</span>
+            <span class="timeline-node-title">الانهيار والمستعر الأعظم</span>
+          </button>
+          <button type="button" class="timeline-node" data-step="3" onclick="selectTimeline(3)">
+            <span class="timeline-epoch">عبر الزمن الكوني</span>
+            <span class="timeline-node-title">التراكم وتصادم المجرات</span>
+          </button>
+          <button type="button" class="timeline-node" data-step="4" onclick="selectTimeline(4)">
+            <span class="timeline-epoch">بعد 13.8 مليار سنة</span>
+            <span class="timeline-node-title">عصر الرصد الحديث</span>
+          </button>
+        </div>
+
+        <div class="timeline-stage" aria-live="polite">
+          <div style="display: flex; flex-direction: column; gap: var(--space-md);">
+            <div style="display: flex; align-items: center; gap: var(--space-sm); flex-wrap: wrap;">
+              <span class="badge badge-orange" id="tl-epoch-badge">0 – 1 ثانية بعد نشأة الكون</span>
+              <span class="badge badge-cyan" id="tl-step-badge">المحطة 1 من 5</span>
+            </div>
+            <h3 id="tl-title" style="font-size: var(--subhead-size);">الثانية الأولى: احتمال ولادة الثقوب السوداء البدائية</h3>
+            <p id="tl-desc">
+              يفترض العلماء أن الثقوب السوداء البدائية ربما تشكّلت في الثانية الأولى بعد ولادة الكون، حين كانت جيوب من المادة الحارة شديدة الكثافة بما يكفي لتكوين ثقوب تتراوح كتلتها بين جزء من مئة ألف من كتلة مشبك ورق و100 ألف ضعف كتلة الشمس. ومع تمدد الكون السريع وتبريده انتهت شروط تشكلها بهذه الطريقة.
+            </p>
+            <div style="display: flex; align-items: center; gap: var(--space-sm); padding-top: var(--space-xs);">
+              <button type="button" class="btn" id="tl-prev" onclick="stepTimeline(-1)">
+                <i data-lucide="chevron-right" aria-hidden="true"></i>
+                <span>المحطة السابقة</span>
+              </button>
+              <button type="button" class="btn btn-primary" id="tl-next" onclick="stepTimeline(1)">
+                <span>المحطة التالية</span>
+                <i data-lucide="chevron-left" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="observation-well timeline-visual" id="tl-visual">
+            <!-- Rendered dynamically via JS -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: DETECTION METHODS & 10 ESSENTIAL FACTS -->
+    <section id="facts" class="section-block reveal">
+      <div class="section-head orange-rule">
+        <span class="section-deck">القسم الرابع — أدلة الرصد والأرقام القياسية</span>
+        <h2 class="section-title">كيف نرصد غير المرئي؟ وحقائق علمية أساسية</h2>
+        <p class="section-intro">
+          بما أن الثقوب السوداء لا تُصدر الضوء ولا تعكسه، يعتمد العلماء على رصد أثرها في محيطها بأربع طرق رئيسية، كشفت عن أرقام مذهلة وظواهر فيزيائية دقيقة.
+        </p>
+      </div>
+
+      <!-- 4 Detection Methods -->
+      <div class="methods-grid">
+        <article class="method-card">
+          <div class="method-icon-box"><i data-lucide="disc" aria-hidden="true"></i></div>
+          <h3>أقراص التراكم والأشعة السينية</h3>
+          <p style="font-size: var(--label-size);">
+            تُحاط الثقوب السوداء أحياناً بحلقات ساخنة من الغاز والغبار تُطلق إشعاعات عبر أطوال موجية متعددة، من بينها الأشعة السينية عالية الطاقة من القرص والإكليل.
+          </p>
+        </article>
+
+        <article class="method-card">
+          <div class="method-icon-box orange"><i data-lucide="sparkles" aria-hidden="true"></i></div>
+          <h3>تتبّع مدارات النجوم</h3>
+          <p style="font-size: var(--label-size);">
+            تُجبر الجاذبية الفائقة النجوم القريبة على الدوران بمسارات محددة؛ وقد فاز تتبّع هذه المدارات في مركز درب التبانة بجائزة نوبل لعام <bdi dir="ltr">2020</bdi>.
+          </p>
+        </article>
+
+        <article class="method-card">
+          <div class="method-icon-box"><i data-lucide="activity" aria-hidden="true"></i></div>
+          <h3>موجات الجاذبية</h3>
+          <p style="font-size: var(--label-size);">
+            عندما تتسارع الأجسام فائقة الكتلة في الفضاء تولّد تموجات في نسيج الزمكان تُعرف بموجات الجاذبية، يرصدها العلماء عبر أثرها على الكواشف.
+          </p>
+        </article>
+
+        <article class="method-card">
+          <div class="method-icon-box orange"><i data-lucide="eye" aria-hidden="true"></i></div>
+          <h3>عدسة الجاذبية</h3>
+          <p style="font-size: var(--label-size);">
+            تحني الثقوب السوداء وتشوّه الضوء القادم من أجسام أبعد خلفها، ما يتيح العثور على ثقوب سوداء معزولة لا تملك قرص تراكم.
+          </p>
+        </article>
+      </div>
+
+      <!-- 10 Essential Facts with Filter -->
+      <div class="facts-toolbar" style="margin-top: var(--space-md);">
+        <h3 style="font-size: var(--subhead-size);">الحقائق العلمية العشر الموثقة</h3>
+        <div class="filter-group" role="group" aria-label="تصفية الحقائق العلمية">
+          <button type="button" class="btn is-active" data-filter="all" onclick="filterFacts('all', this)">الكل (10)</button>
+          <button type="button" class="btn" data-filter="records" onclick="filterFacts('records', this)">أرقام قياسية</button>
+          <button type="button" class="btn" data-filter="physics" onclick="filterFacts('physics', this)">فيزياء متطرفة</button>
+          <button type="button" class="btn" data-filter="cosmos" onclick="filterFacts('cosmos', this)">النشأة والمجرة</button>
+        </div>
+      </div>
+
+      <div class="facts-grid" id="facts-grid">
+        <!-- Populated by JS -->
+      </div>
+    </section>
+
+    <!-- SECTION 5: MYTHS VS. FACTS -->
+    <section id="myths" class="section-block reveal">
+      <div class="section-head">
+        <span class="section-deck">القسم الخامس — مراجعة المفاهيم الفلكية</span>
+        <h2 class="section-title">اختبر فهمك: خرافة شائعة أم حقيقة علمية؟</h2>
+        <p class="section-intro">
+          تحيط بالثقوب السوداء تصورات شعبية غير دقيقة. اقرأ كل عبارة واختر هل هي «خرافة شائعة» أم «حقيقة علمية»، لتظهر لك النتيجة والتصحيح الفيزيائي الدقيق.
+        </p>
+      </div>
+
+      <div class="myth-header-bar">
+        <div style="display: flex; align-items: center; gap: var(--space-md); flex-wrap: wrap;">
+          <span style="font-weight: 700; color: var(--on-surface);">التقدم في المراجعة:</span>
+          <span class="badge badge-cyan" id="myth-progress">تم فحص 0 من 6 عبارات</span>
+          <span class="badge badge-green" id="myth-score">الإجابات الصحيحة: 0</span>
+        </div>
+        <button type="button" class="btn btn-orange" onclick="resetMyths()">
+          <i data-lucide="rotate-ccw" aria-hidden="true"></i>
+          <span>إعادة الاختبار</span>
+        </button>
+      </div>
+
+      <div class="myth-grid" id="myth-grid">
+        <!-- Populated by JS -->
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div>
+        <strong>المصادر العلمية المعتمدة:</strong> جميع الشروحات، والأرقام الفلكية، والتصنيفات، والحقائق الواردة في هذا الدليل مستندة حصراً إلى صفحات ناسا للعلوم (NASA Science): «تشريح الثقوب السوداء» (Anatomy)، و«أساسيات الثقوب السوداء» (Black Holes)، و«أنواع الثقوب السوداء» (Types).
+      </div>
+      <div class="mono-num" style="color: var(--primary);">RTL • Dark Navy / Cyan / Orange</div>
+    </div>
+  </footer>
+
+  <script>
+    /* =========================================================================
+       DATA DEFINITIONS (Strictly grounded in NASA Science excerpts)
+       ========================================================================= */
+    const anatomyData = [
+      {
+        title: `أفق الحدث (Event Horizon)`,
+        tag: `حد اللاعودة`,
+        desc: `هو ما يجعل الثقب الأسود «أسودَ»؛ ويمكن تصور أفق الحدث بوصفه سطح الثقب الأسود، إلا أنه ليس سطحاً صلباً كالأرض أو الشمس بل حدّ يحيط بالمادة. داخل هذا الحد تفوق سرعة الإفلات سرعة الضوء، ولأن الضوء لا يستطيع الهرب، لا تُصدر الثقوب السوداء ضوءاً ولا تعكسه ولا يصل أي خبر مما بداخلها إلى مراقب خارجي.`
+      },
+      {
+        title: `قرص التراكم (Accretion Disk)`,
+        tag: `مصدر الضوء الرئيسي`,
+        desc: `تجمع الثقوب السوداء الغاز من النجوم المجاورة في قرص ساخن ومضيء يدور بسرعة هائلة. وبفعل انحناء الزمكان بالجاذبية (عدسة الجاذبية)، يبدو القرص من معظم الزوايا بحدبة فوق الثقب وأخرى تحته، في حين تختفي الحدبتان تماماً عند النظر إليه بمواجهة أمامية مباشرة. أما الثقوب المعزولة التي استنفدت مادتها فتفتقر لهذا القرص.`
+      },
+      {
+        title: `ظل أفق الحدث (Event Horizon Shadow)`,
+        tag: `ضعف الحجم الحقيقي`,
+        desc: `يلتقط أفق الحدث أي ضوء يمر عبره، بينما يُعيد الزمكان المشوّه توجيه الضوء حوله عبر عدسة الجاذبية. هذان التأثيران معاً يُنتجان منطقةً مظلمةً يُطلق عليها علماء الفلك «ظل أفق الحدث»، وتبلغ مساحتها ضعف حجم السطح الفعلي للثقب الأسود تقريباً.`
+      },
+      {
+        title: `كرة الفوتونات (Photon Sphere)`,
+        tag: `حلقات الضوء الملتفّ`,
+        desc: `من كل زاوية رؤية، تظهر حلقات رفيعة من الضوء عند حافة ظل الثقب الأسود. هذه الحلقات هي في الواقع صور متعددة وشديدة التشوّه لقرص التراكم، حيث يدور الضوء القادم من القرص حول الثقب الأسود عدة مرات قبل أن يفلت متجهاً إلينا، وتزداد الحلقات الأقرب للثقب رِقّةً وخفوتاً.`
+      },
+      {
+        title: `تأثير دوبلر النسبي (Doppler Beaming)`,
+        tag: `سطوع غير متماثل`,
+        desc: `يبدو أحد جانبي قرص التراكم أكثر سطوعاً من الآخر من معظم الزوايا؛ فبالقرب من الثقب الأسود يدور القرص بسرعة تجعل آثار النسبية لأينشتاين جلية: الضوء المنبعث من الجانب المقترب نحونا يصبح أكثر سطوعاً وزرقة، بينما يصبح الضوء من الجانب المبتعد أكثر خفوتاً واحمراراً، على غرار تغيّر صوت صفارة الإنذار عند اقترابها وابتعادها.`
+      },
+      {
+        title: `الإكليل أو الهالة (Corona)`,
+        tag: `سحابة بمليار درجة`,
+        desc: `تُعد من أكثر البيئات الفيزيائية تطرفاً في الكون؛ إذ تمتد مجالات مغناطيسية قوية من باطن قرص التراكم نحو الخارج مكوّنةً سحابةً رقيقة ومضطربة تبلغ حرارتها مليار درجة. تدور جسيماتها بسرعات تقارب سرعة الضوء وتُصدر أشعة سينية أعلى طاقة من تلك الصادرة عن القرص، ولا يزال العلماء يدرسون شكلها ومداها الدقيق.`
+      },
+      {
+        title: `نفاثات الجسيمات (Particle Jets)`,
+        tag: `قرب سرعة الضوء`,
+        desc: `بالقرب من الحافة الداخلية لقرص التراكم قد يُعاد توجيه قدر ضئيل من المادة الساقطة إلى نفاثتين متعاكستين تقذفان الجسيمات بسرعات تقارب سرعة الضوء. وفي الثقوب فائقة الكتلة قد تمتد هذه النفاثات مئات الآلاف من السنين الضوئية؛ وعندما تتجه نحونا يبدو النفاث القريب أشد سطوعاً بكثير من النفاث الخلفي بفعل تأثير دوبلر.`
+      },
+      {
+        title: `التفرد أو المتفرد (Singularity)`,
+        tag: `كثافة لانهائية متوقعة`,
+        desc: `تتنبأ النسبية العامة بوجود نقطة في المركز الدقيق للثقب الأسود تُسحق فيها المادة إلى كثافة لانهائية، وهي الوجهة النهائية لكل ما يعبر أفق الحدث. لا يعلم العلماء بعد إن كان التفرد بنيةً فيزيائية حقيقية أم مجرد بنية رياضية تشير إلى حدود النسبية حيث تصبح التأثيرات الكمومية ضرورية لوصف أكمل للجاذبية.`
+      }
+    ];
+
+    const typesData = [
+      {
+        title: `الثقوب السوداء ذات الكتلة النجمية`,
+        status: `مؤكدة الرصد`,
+        range: `النطاق: بضع كتل – مئات الكتل الشمسية`,
+        desc: `عندما ينفد وقود نجم تزيد كتلته على 8 أضعاف كتلة الشمس، ينهار قلبه ويرتد وينفجر كمستعر أعظم. إذا كانت كتلته قريبة من هذا الحدّ خلّف نجماً نيوترونياً بحجم مدينة، أما إذا بلغت نحو 20 ضعف كتلة الشمس أو أكثر فينهار القلب إلى ثقب أسود نجمي. رُصد نحو 50 ثقباً مشتبهاً أو مؤكداً في مجرة درب التبانة عبر أنظمة نجمية ثنائية، لكن العلماء يقدّرون وجود ما يصل إلى 100 مليون ثقب منها في مجرتنا وحدها.`
+      },
+      {
+        title: `الثقوب السوداء متوسطة الكتلة`,
+        status: `مرشحات قيد التأكيد`,
+        range: `النطاق: مئات – مئات الآلاف من الكتل الشمسية`,
+        desc: `يتحير العلماء أمام الفجوة في الحجم بين الثقوب النجمية وفائقة الكتلة، ويرجحون وجود تدرّج متصل نشأ عبر تصادم الثقوب النجمية على مدى الزمن الكوني. تمثل هذه الفئة «الحلقة المفقودة»، وقد رصد تلسكوب هابل مرشحاً واعداً باسم 3XMM J215022.4−055108 بكتلة تقارب 50,000 ضعف كتلة الشمس، إلا أن تأكيدها لا يزال صعباً.`
+      },
+      {
+        title: `الثقوب السوداء فائقة الكتلة`,
+        status: `في مراكز المجرات`,
+        range: `النطاق: مئات الآلاف – مليارات الكتل الشمسية`,
+        desc: `تحتضن كل مجرة كبيرة تقريباً ثقباً أسود فائق الكتلة في مركزها. يبلغ «الرامي A*» في مركز درب التبانة 4 ملايين كتلة شمسية، وهو صغير نسبياً مقارنة بمركز مجرة Holmberg 15A الذي يحوي 40 مليار كتلة شمسية على الأقل، أو TON 618 البالغ 66 مليار كتلة شمسية. ولا تزال نشأتها الأولى غامضة رغم رصد بعضها في المليار سنة الأولى من عمر الكون.`
+      },
+      {
+        title: `الثقوب السوداء البدائية`,
+        status: `فرضية نظرية`,
+        range: `النطاق: أقل من مشبك ورق – 100 ألف كتلة شمسية`,
+        desc: `يفترض علماء الكونيات أن هذه الفئة تكوّنت في الثانية الأولى بعد نشأة الكون من جيوب المادة الحارة شديدة الكثافة، ثم انتهت ظروف تشكلها مع التمدد والتبريد السريعين. بعد 13.8 مليار سنة لم يجد العلماء دليلاً قاطعاً على وجودها؛ ويُحتمل أن منخفضة الكتلة منها (أقل من كتلة جبل) تبخرت كلياً بفعل عمليات ميكانيكا الكم عند حواف آفاق أحداثها، بينما قد تبقى الأكثر كتلة هائمة في الكون.`
+      }
+    ];
+
+    const timelineData = [
+      {
+        epochBadge: `0 – 1 ثانية بعد نشأة الكون`,
+        title: `الثانية الأولى: احتمال ولادة الثقوب السوداء البدائية`,
+        desc: `يفترض العلماء أن الثقوب السوداء البدائية ربما تشكّلت في الثانية الأولى بعد ولادة الكون، حين كانت جيوب من المادة الحارة شديدة الكثافة بما يكفي لتكوين ثقوب تتراوح كتلتها بين جزء من مئة ألف من كتلة مشبك ورق و100 ألف ضعف كتلة الشمس. ومع تمدد الكون السريع وتبريده انتهت شروط تشكلها بهذه الطريقة.`,
+        svgType: `primordial`
+      },
+      {
+        epochBadge: `أول مليار سنة من عمر الكون`,
+        title: `المليار سنة الأولى: بزوغ العمالقة فائقة الكتلة`,
+        desc: `تُظهر أرصاد المجرات البعيدة أن بعض الثقوب السوداء فائقة الكتلة تشكّلت بالفعل خلال المليار سنة الأولى بعد ولادة الكون، وربما بدأت بانهيار نجوم فائقة الكتلة في الكون المبكر مما منحها انطلاقة مبكرة. ويقع أبعد ثقب أسود مرصود في مركز المجرة QSO J0313-1806 على بُعد نحو 13 مليار سنة ضوئية.`,
+        svgType: `early`
+      },
+      {
+        epochBadge: `نهاية دورة حياة النجم الضخم`,
+        title: `انهيار النجوم العملاقة وانفجار المستعر الأعظم`,
+        desc: `عندما ينفد وقود نجم تفوق كتلته 8 أضعاف كتلة الشمس، ينهار قلبه ويرتد منفجراً كمستعر أعظم. النجوم القريبة من تلك العتبة تُخلّف نجماً نيوترونياً فائق الكثافة بحجم مدينة، أما النجوم التي تبلغ كتلتها نحو 20 ضعف كتلة الشمس أو أكثر فينهار قلبها مباشرة لتولد ثقوب سوداء ذات كتلة نجمية.`,
+        svgType: `supernova`
+      },
+      {
+        epochBadge: `عبر مليارات السنين الكونية`,
+        title: `النمو بالتراكم وتصادم الثقوب والمجرات`,
+        desc: `تزداد الثقوب السوداء كتلةً بابتلاع الغاز من نجوم مجاورة عبر أقراص التراكم، أو عبر ابتلاع أجسام أصغر كالنجوم النيوترونية. كما يرجح العلماء أن تصادمات الثقوب النجمية عبر الزمن الكوني أنتجت ثقوباً متوسطة الكتلة، وأن تصادم المجرات يؤدي إلى اندماج ثقوبها فائقة الكتلة وإطلاق موجات جاذبية.`,
+        svgType: `merger`
+      },
+      {
+        epochBadge: `الحاضر — بعد 13.8 مليار سنة`,
+        title: `عصر الرصد الحديث والتلسكوبات الفضائية`,
+        desc: `بعد 13.8 مليار سنة من نشأة الكون، نجح العلماء في إثبات وجود ثقب «الرامي A*» بتتبّع مدارات النجوم القريبة منه (جائزة نوبل 2020)، ورصد تلسكوب جيمس ويب ومضات سريعة منبعثة قريباً جداً منه، ورصد هابل مرشحاً متوسط الكتلة، بينما يستمر البحث عن أثر الثقوب البدائية أو بقاياها قبل التبخر الكمومي.`,
+        svgType: `modern`
+      }
+    ];
+
+    const factsData = [
+      { num: `01`, cat: `records`, title: `الأقرب إلينا`, metric: `1,500 سنة ضوئية`, desc: `أقرب ثقب أسود معروف هو Gaia BH1، ويبعد نحو 1,500 سنة ضوئية عن الأرض.` },
+      { num: `02`, cat: `records`, title: `الأبعد المرصود`, metric: `13 مليار سنة ضوئية`, desc: `أبعد ثقب أسود جرى اكتشافه يقع في مركز المجرة QSO J0313-1806 على بُعد نحو 13 مليار سنة ضوئية.` },
+      { num: `03`, cat: `records`, title: `الأضخم كتلةً`, metric: `66 مليار كتلة شمسية`, desc: `أضخم ثقب أسود مرصود هو TON 618، وتبلغ كتلته 66 مليار ضعف كتلة الشمس.` },
+      { num: `04`, cat: `records`, title: `الأخف كتلةً`, metric: `3.8 كتلة شمسية`, desc: `أخف ثقب أسود معروف تبلغ كتلته 3.8 أضعاف كتلة الشمس فقط، وهو مقترن بنجم.` },
+      { num: `05`, cat: `physics`, title: `التمدد المعكروني (Spaghettification)`, metric: `شدّ عمودي وضغط أفقي`, desc: `مصطلح علمي حقيقي يصف ما يحدث للمادة عند اقترابها الشديد من ثقب أسود؛ إذ تُضغط أفقياً وتتمدد عمودياً لتشبه المعكرونة.` },
+      { num: `06`, cat: `physics`, title: `الدوران الذاتي الفائق`, metric: `> 1,000 دورة / ثانية`, desc: `تدور جميع الثقوب السوداء حول نفسها، وأسرعها المعروف هو GRS 1915+105 الذي يتجاوز 1,000 دورة في الثانية الواحدة.` },
+      { num: `07`, cat: `physics`, title: `مسرّعات جسيمات كونية`, metric: `قرب سرعة الضوء`, desc: `تستطيع الثقوب السوداء العملاقة في مراكز المجرات إطلاق جسيمات في نفاثات بسرعات تقارب سرعة الضوء.` },
+      { num: `08`, cat: `physics`, title: `الجاذبية نفسها عن بُعد`, metric: `بقاء المدارات دون تغيير`, desc: `لو استُبدلت الشمس بثقب أسود له الكتلة نفسها لصارت المجموعة الشمسية أشد برداً، لكن الكواكب ستبقى في مداراتها.` },
+      { num: `09`, cat: `cosmos`, title: `انفجارات النجوم`, metric: `المستعرات العظمى`, desc: `يولد أحد أنواع الثقوب السوداء عندما ينفد وقود النجوم الضخمة وتنفجر في مستعرات عظمى.` },
+      { num: `10`, cat: `cosmos`, title: `ليست نادرة كما يُظن`, metric: `4 ملايين كتلة شمسية`, desc: `تحوي معظم المجرات بحجم درب التبانة ثقباً عملاقاً في مركزها؛ وثقب مجرتنا «الرامي A*» تبلغ كتلته 4 ملايين كتلة شمسية.` }
+    ];
+
+    const mythsData = [
+      {
+        statement: `«الثقب الأسود هو مجرد ثقب أو فراغ فارغ في الفضاء يبتلع الأشياء.»`,
+        isTrue: false,
+        verdict: `خرافة شائعة`,
+        explanation: `الثقوب السوداء ليست ثقوباً فارغة؛ بل هي تراكيز هائلة من المادة مضغوطة في مساحات بالغة الصغر، مما يولّد جاذبية شديدة تحت حدود أفق الحدث.`
+      },
+      {
+        statement: `«تعمل الثقوب السوداء كمكنسة كهربائية كونية تمتص كل ما في الفضاء حولها.»`,
+        isTrue: false,
+        verdict: `خرافة شائعة`,
+        explanation: `لا تمتص الثقوب السوداء المادة المحيطة بها من بعيد؛ فمن مسافة كافية يكون تأثير جاذبيتها مطابقاً تماماً لأي جسم آخر له الكتلة نفسها.`
+      },
+      {
+        statement: `«لو استبدلنا الشمس بثقب أسود يملك كتلة الشمس نفسها، ستواصل الكواكب الدوران في مداراتها المعتادة.»`,
+        isTrue: true,
+        verdict: `حقيقة علمية`,
+        explanation: `صحيح تماماً! لأن الجاذبية على تلك المسافات تعتمد على الكتلة؛ ستصبح المجموعة الشمسية أشد برداً وظلاماً، لكن مدارات الكواكب لن تتغير.`
+      },
+      {
+        statement: `«الثقوب السوداء عبارة عن ثقوب دودية تفتح بوابات مختصرة إلى أكوان وأبعاد أخرى.»`,
+        isTrue: false,
+        verdict: `خرافة شائعة`,
+        explanation: `ليست الثقوب السوداء ثقوباً دودية؛ فهي لا توفر طرقاً مختصرة بين نقاط مختلفة في الفضاء، ولا بوابات إلى أبعاد أو أكوان أخرى.`
+      },
+      {
+        statement: `«المنطقة السوداء التي نراها (ظل أفق الحدث) تساوي حجم السطح الفعلي للثقب الأسود تماماً.»`,
+        isTrue: false,
+        verdict: `خرافة شائعة`,
+        explanation: `يلتقط أفق الحدث الضوء المار به ويعيد الزمكان المشوّه توجيه الضوء حوله، فيتشكل «ظل أفق الحدث» بقطر يبلغ ضعف حجم السطح الفعلي للثقب الأسود تقريباً.`
+      },
+      {
+        statement: `«كل الثقوب السوداء في الكون تدور حول محورها، وبعضها يتجاوز ألف دورة في الثانية.»`,
+        isTrue: true,
+        verdict: `حقيقة علمية`,
+        explanation: `حقيقة مؤكدة؛ فجميع الثقوب السوداء تدور، وأسرع ثقب أسود معروف هو GRS 1915+105 الذي يسجل أكثر من 1,000 دورة في الثانية الواحدة.`
+      }
+    ];
+
+    /* =========================================================================
+       STATE & INTERACTION HANDLERS (Hoisted function declarations)
+       ========================================================================= */
+    let currentAnatomyIdx = 0;
+    let currentTimelineIdx = 0;
+    const mythAnswers = {};
+
+    function selectAnatomy(idx) {
+      if (idx < 0 || idx >= anatomyData.length) return;
+      currentAnatomyIdx = idx;
+      const item = anatomyData[idx];
+
+      const titleEl = document.getElementById('anatomy-title');
+      const descEl = document.getElementById('anatomy-desc');
+      const badgeEl = document.getElementById('anatomy-badge');
+      const tagEl = document.getElementById('anatomy-tag');
+      const counterEl = document.getElementById('anatomy-counter');
+      const prevBtn = document.getElementById('anatomy-prev');
+      const nextBtn = document.getElementById('anatomy-next');
+
+      if (titleEl) titleEl.textContent = item.title;
+      if (descEl) descEl.textContent = item.desc;
+      if (badgeEl) badgeEl.textContent = `المكون ${idx + 1} من ${anatomyData.length}`;
+      if (tagEl) tagEl.textContent = item.tag;
+      if (counterEl) counterEl.textContent = `${idx + 1} / ${anatomyData.length}`;
+      if (prevBtn) prevBtn.disabled = idx === 0;
+      if (nextBtn) nextBtn.disabled = idx === anatomyData.length - 1;
+
+      document.querySelectorAll('.anatomy-pill').forEach(function(btn) {
+        btn.classList.toggle('is-active', Number(btn.dataset.idx) === idx);
+      });
+      document.querySelectorAll('.svg-hotspot').forEach(function(hs) {
+        hs.classList.toggle('is-active', Number(hs.dataset.part) === idx);
+      });
+
+      highlightSvgLayer(idx);
+    }
+
+    function stepAnatomy(delta) {
+      const next = Math.max(0, Math.min(anatomyData.length - 1, currentAnatomyIdx + delta));
+      selectAnatomy(next);
+    }
+
+    function highlightSvgLayer(idx) {
+      const map = {
+        0: 'layer-event-horizon',
+        1: 'layer-accretion-disk',
+        2: 'layer-shadow',
+        3: 'layer-photon-sphere',
+        4: 'layer-accretion-disk',
+        5: 'layer-corona',
+        6: 'layer-jets',
+        7: 'layer-singularity'
+      };
+      const allIds = ['layer-event-horizon', 'layer-accretion-disk', 'layer-shadow', 'layer-photon-sphere', 'layer-corona', 'layer-jets', 'layer-singularity', 'layer-lensing-humps'];
+      const targetId = map[idx];
+      allIds.forEach(function(id) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        if (id === targetId || (idx === 1 && id === 'layer-lensing-humps')) {
+          el.setAttribute('opacity', '1');
+        } else {
+          el.setAttribute('opacity', '0.45');
+        }
+      });
+    }
+
+    function updateViewingAngle(val) {
+      const angle = Number(val);
+      const readout = document.getElementById('angle-readout');
+      const note = document.getElementById('angle-note');
+      const diskOuter = document.getElementById('disk-outer');
+      const diskMid = document.getElementById('disk-mid');
+      const diskInner = document.getElementById('disk-inner');
+      const humps = document.getElementById('layer-lensing-humps');
+      const dopplerApp = document.getElementById('doppler-approaching');
+      const dopplerRec = document.getElementById('doppler-receding');
+
+      let label = `${angle}° (مائلة)`;
+      if (angle <= 12) label = `${angle}° (أمامية)`;
+      else if (angle >= 78) label = `${angle}° (شبه حافّية)`;
+      if (readout) readout.textContent = label;
+
+      // Project disk elliptical ry based on cos(angle)
+      const rad = (angle * Math.PI) / 180;
+      const cosA = Math.max(0.14, Math.cos(rad));
+      if (diskOuter) diskOuter.setAttribute('ry', String(Math.round(215 * cosA)));
+      if (diskMid) diskMid.setAttribute('ry', String(Math.round(178 * cosA)));
+      if (diskInner) diskInner.setAttribute('ry', String(Math.round(135 * cosA)));
+
+      // Gravitational lensing humps disappear when face-on (angle ~ 0)
+      const tiltFactor = Math.sin(rad);
+      if (humps) humps.setAttribute('opacity', String((tiltFactor * 0.95).toFixed(2)));
+
+      // Doppler beaming asymmetry scales with tilt
+      if (dopplerApp && dopplerRec) {
+        const ryOuter = Math.round(215 * cosA);
+        dopplerApp.setAttribute('d', `M 105 210 A 215 ${ryOuter} 0 0 0 320 ${210 + ryOuter}`);
+        dopplerRec.setAttribute('d', `M 320 ${210 + ryOuter} A 215 ${ryOuter} 0 0 0 535 210`);
+        dopplerApp.setAttribute('opacity', String((0.35 + tiltFactor * 0.65).toFixed(2)));
+        dopplerRec.setAttribute('opacity', String((0.75 - tiltFactor * 0.5).toFixed(2)));
+      }
+
+      if (note) {
+        if (angle <= 12) {
+          note.textContent = `في الزاوية الأمامية المباشرة لا تظهر أي حدبات للتعديس الثقالي، ويبدو سطوع القرص متساوياً حول المحيط دون تفاوت واضح لتأثير دوبلر.`;
+        } else {
+          note.textContent = `عند النظر بزاوية ${angle}° تظهر حدبات التعديس الثقالي للضوء المنحني من خلف الثقب، ويشتد تباين السطوع واللون بين الجانب المقترب (أزرق سماوي ساطع) والمبتعد (برتقالي خافت).`;
+        }
+      }
+    }
+
+    function setAnglePreset(angle) {
+      const slider = document.getElementById('angle-slider');
+      if (slider) slider.value = String(angle);
+      updateViewingAngle(angle);
+      document.querySelectorAll('.angle-presets .btn').forEach(function(btn) {
+        btn.classList.toggle('is-active', btn.textContent.indexOf(String(angle)) !== -1);
+      });
+    }
+
+    function selectType(idx) {
+      if (idx < 0 || idx >= typesData.length) return;
+      const item = typesData[idx];
+      const titleEl = document.getElementById('type-title');
+      const statusEl = document.getElementById('type-status-badge');
+      const rangeEl = document.getElementById('type-range-badge');
+      const descEl = document.getElementById('type-desc');
+
+      if (titleEl) titleEl.textContent = item.title;
+      if (statusEl) statusEl.textContent = item.status;
+      if (rangeEl) rangeEl.textContent = item.range;
+      if (descEl) descEl.textContent = item.desc;
+
+      document.querySelectorAll('.type-card').forEach(function(card) {
+        card.classList.toggle('is-active', Number(card.dataset.type) === idx);
+      });
+    }
+
+    function selectTimeline(idx) {
+      if (idx < 0 || idx >= timelineData.length) return;
+      currentTimelineIdx = idx;
+      const item = timelineData[idx];
+
+      const epochBadge = document.getElementById('tl-epoch-badge');
+      const stepBadge = document.getElementById('tl-step-badge');
+      const titleEl = document.getElementById('tl-title');
+      const descEl = document.getElementById('tl-desc');
+      const prevBtn = document.getElementById('tl-prev');
+      const nextBtn = document.getElementById('tl-next');
+      const visualEl = document.getElementById('tl-visual');
+
+      if (epochBadge) epochBadge.textContent = item.epochBadge;
+      if (stepBadge) stepBadge.textContent = `المحطة ${idx + 1} من ${timelineData.length}`;
+      if (titleEl) titleEl.textContent = item.title;
+      if (descEl) descEl.textContent = item.desc;
+      if (prevBtn) prevBtn.disabled = idx === 0;
+      if (nextBtn) nextBtn.disabled = idx === timelineData.length - 1;
+
+      document.querySelectorAll('.timeline-node').forEach(function(node) {
+        node.classList.toggle('is-active', Number(node.dataset.step) === idx);
+      });
+
+      if (visualEl) {
+        visualEl.innerHTML = buildTimelineSvg(item.svgType);
+      }
+    }
+
+    function stepTimeline(delta) {
+      const next = Math.max(0, Math.min(timelineData.length - 1, currentTimelineIdx + delta));
+      selectTimeline(next);
+    }
+
+    function buildTimelineSvg(kind) {
+      if (kind === 'primordial') {
+        return `<svg viewBox="0 0 320 200" style="width:100%;max-width:320px;height:auto;" aria-hidden="true">
+          <circle cx="160" cy="100" r="78" fill="none" stroke="var(--outline)" stroke-dasharray="4 4" />
+          <circle cx="160" cy="100" r="50" fill="var(--orange-tint)" stroke="var(--tertiary)" stroke-width="1.5" />
+          <circle cx="135" cy="82" r="8" fill="var(--background)" stroke="var(--primary)" stroke-width="2" />
+          <circle cx="182" cy="112" r="14" fill="var(--background)" stroke="var(--tertiary)" stroke-width="2" />
+          <circle cx="160" cy="70" r="5" fill="var(--primary)" />
+          <text x="160" y="190" fill="var(--on-surface-variant)" font-size="11" text-anchor="middle" font-family="IBM Plex Sans Arabic, sans-serif">جيوب مادة كثيفة في الثانية الأولى قبل التمدد السريع</text>
+        </svg>`;
+      }
+      if (kind === 'early') {
+        return `<svg viewBox="0 0 320 200" style="width:100%;max-width:320px;height:auto;" aria-hidden="true">
+          <ellipse cx="160" cy="100" rx="110" ry="36" fill="none" stroke="var(--primary)" stroke-width="2" opacity="0.6" />
+          <ellipse cx="160" cy="100" rx="75" ry="24" fill="none" stroke="var(--tertiary)" stroke-width="3" opacity="0.8" />
+          <circle cx="160" cy="100" r="18" fill="var(--background)" stroke="var(--on-surface)" stroke-width="1.8" />
+          <line x1="160" y1="20" x2="160" y2="180" stroke="var(--primary)" stroke-width="2.5" opacity="0.7" />
+          <text x="160" y="192" fill="var(--on-surface-variant)" font-size="11" text-anchor="middle" font-family="IBM Plex Sans Arabic, sans-serif">QSO J0313-1806 — على بُعد 13 مليار سنة ضوئية</text>
+        </svg>`;
+      }
+      if (kind === 'supernova') {
+        return `<svg viewBox="0 0 320 200" style="width:100%;max-width:320px;height:auto;" aria-hidden="true">
+          <circle cx="160" cy="96" r="68" fill="var(--orange-tint)" stroke="var(--tertiary)" stroke-width="1.5" stroke-dasharray="6 4" />
+          <circle cx="160" cy="96" r="44" fill="var(--cyan-tint)" stroke="var(--primary)" stroke-width="1.5" />
+          <circle cx="160" cy="96" r="16" fill="var(--background)" stroke="var(--on-surface)" stroke-width="2" />
+          <path d="M 160 18 L 160 40 M 160 152 L 160 174 M 82 96 L 104 96 M 216 96 L 238 96" stroke="var(--tertiary)" stroke-width="2" stroke-linecap="round" />
+          <text x="160" y="192" fill="var(--on-surface-variant)" font-size="11" text-anchor="middle" font-family="IBM Plex Sans Arabic, sans-serif">انهيار قلب نجم ≥ 20 كتلة شمسية بعد المستعر الأعظم</text>
+        </svg>`;
+      }
+      if (kind === 'merger') {
+        return `<svg viewBox="0 0 320 200" style="width:100%;max-width:320px;height:auto;" aria-hidden="true">
+          <circle cx="160" cy="96" r="76" fill="none" stroke="var(--primary)" stroke-width="1" stroke-dasharray="3 4" opacity="0.5" />
+          <circle cx="160" cy="96" r="54" fill="none" stroke="var(--primary)" stroke-width="1.5" opacity="0.7" />
+          <circle cx="136" cy="96" r="14" fill="var(--background)" stroke="var(--tertiary)" stroke-width="2" />
+          <circle cx="184" cy="96" r="14" fill="var(--background)" stroke="var(--primary)" stroke-width="2" />
+          <path d="M 136 82 Q 160 62 184 82" fill="none" stroke="var(--tertiary)" stroke-width="1.5" />
+          <path d="M 184 110 Q 160 130 136 110" fill="none" stroke="var(--primary)" stroke-width="1.5" />
+          <text x="160" y="192" fill="var(--on-surface-variant)" font-size="11" text-anchor="middle" font-family="IBM Plex Sans Arabic, sans-serif">تصادم الثقوب وإطلاق تموجات الجاذبية في الزمكان</text>
+        </svg>`;
+      }
+      return `<svg viewBox="0 0 320 200" style="width:100%;max-width:320px;height:auto;" aria-hidden="true">
+        <ellipse cx="160" cy="96" rx="92" ry="44" fill="none" stroke="var(--primary)" stroke-width="1.5" stroke-dasharray="4 4" />
+        <ellipse cx="160" cy="96" rx="56" ry="26" fill="none" stroke="var(--tertiary)" stroke-width="1.5" />
+        <circle cx="160" cy="96" r="14" fill="var(--background)" stroke="var(--on-surface)" stroke-width="2" />
+        <circle cx="222" cy="65" r="5" fill="var(--tertiary)" />
+        <circle cx="96" cy="120" r="4" fill="var(--primary)" />
+        <text x="160" y="192" fill="var(--on-surface-variant)" font-size="11" text-anchor="middle" font-family="IBM Plex Sans Arabic, sans-serif">تتبع مدارات النجوم حول الرامي A* ومراقبة التلسكوبات</text>
+      </svg>`;
+    }
+
+    function renderFacts(filter) {
+      const grid = document.getElementById('facts-grid');
+      if (!grid) return;
+      const filtered = factsData.filter(function(f) {
+        return filter === 'all' || f.cat === filter;
+      });
+      grid.innerHTML = filtered.map(function(f) {
+        const badgeClass = f.cat === 'records' ? 'badge-orange' : 'badge-cyan';
+        const catLabel = f.cat === 'records' ? 'رقم قياسي' : (f.cat === 'physics' ? 'فيزياء متطرفة' : 'المجرة والنشأة');
+        return `<article class="fact-card">
+          <div class="fact-head">
+            <span class="fact-num">${f.num}</span>
+            <span class="badge ${badgeClass}">${catLabel}</span>
+          </div>
+          <h4>${f.title}</h4>
+          <div class="fact-metric">${f.metric}</div>
+          <p style="font-size: var(--label-size);">${f.desc}</p>
+        </article>`;
+      }).join('');
+    }
+
+    function filterFacts(cat, btn) {
+      renderFacts(cat);
+      document.querySelectorAll('.filter-group .btn').forEach(function(b) {
+        b.classList.toggle('is-active', b === btn);
+      });
+    }
+
+    function renderMyths() {
+      const grid = document.getElementById('myth-grid');
+      if (!grid) return;
+      grid.innerHTML = mythsData.map(function(m, idx) {
+        const answered = Object.prototype.hasOwnProperty.call(mythAnswers, idx);
+        const userChoice = mythAnswers[idx];
+        const isCorrect = answered && userChoice === m.isTrue;
+        let feedbackClass = 'myth-feedback';
+        if (answered) feedbackClass += ' is-visible';
+
+        return `<article class="myth-card">
+          <div style="display: flex; flex-direction: column; gap: var(--space-sm);">
+            <span class="mono-num" style="font-size: var(--label-size); color: var(--tertiary);">عبارة 0${idx + 1}</span>
+            <div class="myth-statement">${m.statement}</div>
+          </div>
+          <div class="myth-actions">
+            <button type="button" class="btn ${answered && userChoice === false ? 'btn-orange' : ''}" onclick="answerMyth(${idx}, false)">خرافة شائعة</button>
+            <button type="button" class="btn ${answered && userChoice === true ? 'btn-primary' : ''}" onclick="answerMyth(${idx}, true)">حقيقة علمية</button>
+          </div>
+          <div class="${feedbackClass}" aria-live="polite">
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: var(--space-xs); flex-wrap: wrap;">
+              <span class="badge ${m.isTrue ? 'badge-cyan' : 'badge-orange'}">${m.verdict}</span>
+              ${answered ? `<span class="badge ${isCorrect ? 'badge-green' : 'badge-red'}">${isCorrect ? 'تقديرك صائب' : 'تحتاج لمراجعة'}</span>` : ''}
+            </div>
+            <p style="font-size: var(--label-size); margin-top: var(--space-xs);">${m.explanation}</p>
+          </div>
+        </article>`;
+      }).join('');
+      updateMythStats();
+    }
+
+    function answerMyth(idx, choice) {
+      mythAnswers[idx] = choice;
+      renderMyths();
+    }
+
+    function updateMythStats() {
+      const total = mythsData.length;
+      const keys = Object.keys(mythAnswers);
+      let correctCount = 0;
+      keys.forEach(function(k) {
+        const idx = Number(k);
+        if (mythAnswers[idx] === mythsData[idx].isTrue) correctCount += 1;
+      });
+      const progEl = document.getElementById('myth-progress');
+      const scoreEl = document.getElementById('myth-score');
+      if (progEl) progEl.textContent = `تم فحص ${keys.length} من ${total} عبارات`;
+      if (scoreEl) scoreEl.textContent = `الإجابات الصحيحة: ${correctCount}`;
+    }
+
+    function resetMyths() {
+      Object.keys(mythAnswers).forEach(function(k) {
+        delete mythAnswers[k];
+      });
+      renderMyths();
+    }
+
+    /* =========================================================================
+       INITIALIZATION & ACCESSIBILITY HOOKS
+       ========================================================================= */
+    document.addEventListener('DOMContentLoaded', function() {
+      selectAnatomy(0);
+      updateViewingAngle(75);
+      selectType(0);
+      selectTimeline(0);
+      renderFacts('all');
+      renderMyths();
+
+      // Keyboard activation on SVG hotspots
+      document.querySelectorAll('.svg-hotspot').forEach(function(el) {
+        el.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            selectAnatomy(Number(el.dataset.part));
+          }
+        });
+      });
+
+      // Scroll reveal once per section
+      if ('IntersectionObserver' in window) {
+        const obs = new IntersectionObserver(function(entries, observer) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-in');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.08 });
+        document.querySelectorAll('.reveal').forEach(function(sec) {
+          obs.observe(sec);
+        });
+      } else {
+        document.querySelectorAll('.reveal').forEach(function(sec) {
+          sec.classList.add('is-in');
+        });
+      }
+
+      if (window.lucide) {
+        window.lucide.createIcons();
+      }
+    });
+  </script>
+
+<!-- added for the hosted copy: honest credit + sources -->
+<footer style="max-width:960px;margin:48px auto 32px;padding:18px 22px;border-top:1px solid rgba(255,255,255,.12);font-family:'IBM Plex Sans Arabic',sans-serif;font-size:14px;line-height:1.9;color:#9fb0c8;text-align:center" dir="rtl">
+  الصفحة دي اتعملت بالذكاء الاصطناعي بأداة <b dir="ltr">Gemini Notebook</b> من جوجل، من 3 صفحات من موقع ناسا، وأرقامها اتراجعت على
+  <a href="https://science.nasa.gov/universe/black-holes/" style="color:#5fd4ff" target="_blank" rel="noopener">science.nasa.gov</a>.
+  <br>المصادر:
+  <a href="https://science.nasa.gov/universe/black-holes/" style="color:#5fd4ff" target="_blank" rel="noopener">Black Holes</a> ·
+  <a href="https://science.nasa.gov/universe/black-holes/types/" style="color:#5fd4ff" target="_blank" rel="noopener">Types</a> ·
+  <a href="https://science.nasa.gov/universe/black-holes/anatomy/" style="color:#5fd4ff" target="_blank" rel="noopener">Anatomy</a>
+  <br><span dir="ltr">@abdelhakam14</span>
+</footer>
+</body>
+</html>
